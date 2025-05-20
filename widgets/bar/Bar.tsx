@@ -1,5 +1,5 @@
 import { App, Astal, Gdk } from 'astal/gtk4'
-import TimePanel from './Time'
+import TimePanel from './TimePanel'
 import LWBPanel from './LWBPanel'
 import WorkspacesPanel from './WorkspacesPanel'
 import CurrentAppPanel from './CurrentAppPanel'
