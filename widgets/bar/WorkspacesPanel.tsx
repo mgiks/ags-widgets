@@ -10,20 +10,24 @@ const hyprland = Hyprland.get_default()
 function Workspace({ workspace }: WorkspaceType) {
   let cssClasses = ['workspace']
 
-  const occupied = hyprland.get_workspace(workspace.id)?.get_clients().length
-  occupied && cssClasses.push('occupied-workspace')
+  const isOccupied = hyprland.get_workspace(workspace.id)?.get_clients().length
+  isOccupied && cssClasses.push('occupied-workspace')
 
-  const focused = hyprland.focusedWorkspace.id == workspace.id
-  focused && cssClasses.push('focused-workspace')
+  const isFocused = hyprland.focusedWorkspace.id == workspace.id
+  isFocused && cssClasses.push('focused-workspace')
 
-  let visible = false
+  let isVisible = false
 
-  if (occupied || focused) {
-    visible = true
+  if (isOccupied || isFocused) {
+    isVisible = true
   }
 
   return (
-    <box visible={visible} cssClasses={cssClasses}>
+    <box
+      visible={isVisible}
+      cssClasses={cssClasses}
+      onButtonPressed={() => workspace.focus()}
+    >
       <label widthRequest={25}>
         {workspace.id.toString().slice(-1)}
       </label>
