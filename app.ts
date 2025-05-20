@@ -1,11 +1,11 @@
-import { App } from "astal/gtk4";
-import style from "./style.css";
-import Bar from "./widgets/bar/Bar";
+import { App } from 'astal/gtk4'
+import { styles } from './styles'
+import Bar from './widgets/bar/Bar'
 
-App.add_icons("/home/mgik/.config/ags/icons");
+App.add_icons('/home/mgik/.config/ags/icons')
 App.start({
-  css: style,
+  css: styles,
   main() {
-    App.get_monitors().map(Bar);
+    App.get_monitors().map(Bar)
   },
-});
+})

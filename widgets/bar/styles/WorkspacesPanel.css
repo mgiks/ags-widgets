@@ -1,0 +1,26 @@
+.workspace-container {
+  border: 2px solid white;
+  min-height: 0px;
+  min-width: 0px;
+  border-radius: 15px;
+  background-color: transparent;
+}
+
+.workspace {
+  background-color: transparent;
+  border-radius: 15px;
+  min-height: 0px;
+  color: black;
+}
+
+.workspace:hover {
+  background-color: red;
+}
+
+.focused-workspace {
+  background-color: red;
+}
+
+.occupied-workspace {
+  color: white;
+}
