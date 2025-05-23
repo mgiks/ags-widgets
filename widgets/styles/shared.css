@@ -1,3 +1,8 @@
+:root {
+  --roundness: 15px;
+  --gap: 10px;
+}
+
 window {
   font-family: 'JetBrains Mono';
   background-color: transparent;
@@ -8,8 +13,7 @@ window {
 centerbox {
   border-radius: 14px;
   background-color: transparent;
-  margin-right: 15px;
-  margin-left: 15px;
+  margin: 0px var(--gap);
   min-height: 1px;
 }
 
@@ -17,7 +21,7 @@ centerbox {
   background-color: transparent;
   color: #c0c0c0;
   border: 2px solid #c0c0c0;
-  border-radius: 15px;
+  border-radius: var(--roundness);
   padding: 2px 8px;
 }
 

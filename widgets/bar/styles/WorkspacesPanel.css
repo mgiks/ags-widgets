@@ -6,7 +6,7 @@
 
 .workspace {
   background-color: transparent;
-  border-radius: 15px;
+  border-radius: var(--roundness);
   min-height: 0px;
   color: black;
 }
