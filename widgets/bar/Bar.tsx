@@ -19,14 +19,14 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
       application={App}
     >
       <centerbox cssName='centerbox'>
-        <box spacing={5}>
+        <box spacing={15}>
           <TimePanel />
           <WorkspacesPanel />
         </box>
         <box>
           <CurrentAppPanel />
         </box>
-        <box spacing={5}>
+        <box spacing={15}>
           <TimeUntilDeathPanel />
           <LWBPanel />
         </box>
