@@ -66,7 +66,7 @@ export default function WorkspacesPanel() {
   )
 
   return (
-    <box cssClasses={['workspace-container']}>
+    <box cssClasses={['container', 'workspace-container']}>
       {workspaces()}
     </box>
   )

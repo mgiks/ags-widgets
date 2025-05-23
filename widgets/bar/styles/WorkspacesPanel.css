@@ -1,9 +1,7 @@
 .workspace-container {
-  border: 2px solid white;
   min-height: 0px;
   min-width: 0px;
-  border-radius: 15px;
-  background-color: transparent;
+  padding: 0px;
 }
 
 .workspace {
@@ -22,5 +20,5 @@
 }
 
 .occupied-workspace {
-  color: white;
+  color: #c0c0c0;
 }
