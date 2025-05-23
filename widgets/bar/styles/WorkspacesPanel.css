@@ -14,11 +14,11 @@
 }
 
 .workspace:hover {
-  background-color: red;
+  background-color: #d81b1a;
 }
 
 .focused-workspace {
-  background-color: red;
+  background-color: #c10000;
 }
 
 .occupied-workspace {
