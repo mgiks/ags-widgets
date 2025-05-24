@@ -19,12 +19,12 @@ centerbox {
 
 .container {
   background-color: transparent;
-  color: #c0c0c0;
-  border: 2px solid #c0c0c0;
+  color: var(--color15);
+  border: 2px solid var(--color15);
   border-radius: var(--roundness);
   padding: 2px 8px;
 }
 
 .red-symbol {
-  color: #d81b1a;
+  color: var(--color1);
 }

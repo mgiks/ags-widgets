@@ -1,3 +1,4 @@
 import shared from './shared.css'
+import generated from './generated.css'
 
-export const sharedStyles = shared
+export const sharedStyles = generated + shared
