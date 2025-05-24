@@ -1,5 +1,7 @@
 import { GLib, Variable } from 'astal'
 import { Gtk } from 'astal/gtk4'
+import { getDisplayMode } from './utils/getDisplayMode'
+import { cycleDisplayMode } from './utils/cycleDisplayMode'
 
 function TimeUntilDeathPanel() {
   const birthday = GLib.DateTime.new_local(2006, 8, 31, 0, 0, 0)
@@ -48,9 +50,48 @@ function TimeUntilDeathPanel() {
 
     return toolTipText
   })
+  const displayMode = Variable(getDisplayMode())
+  const displayData = Variable.derive(
+    [displayMode, years, days, hours, minutes, seconds],
+    (
+      displayMode: string,
+      years: number,
+      days: number,
+      hours: number,
+      minutes: number,
+      seconds: number,
+    ) => {
+      let data = ''
+      switch (displayMode) {
+        case 'years':
+          data = years + ' years'
+          break
+        case 'days':
+          data = days + ' days'
+          break
+        case 'hours':
+          data = hours + ' hours'
+          break
+        case 'minutes':
+          data = minutes + ' minutes'
+          break
+        case 'seconds':
+          data = seconds + ' seconds'
+          break
+        default:
+          data = 'unknown'
+          break
+      }
+      return data
+    },
+  )
 
   return (
     <box
+      onButtonReleased={() => {
+        cycleDisplayMode()
+        displayMode.set(getDisplayMode())
+      }}
       tooltipText={toolTipText}
       spacing={8}
       valign={Gtk.Align.CENTER}
@@ -62,7 +103,7 @@ function TimeUntilDeathPanel() {
       >
         <image iconName='skull' />
         <label>
-          {days.as((v) => v + ' days left alive')}
+          {displayData().as((t) => t + ' left alive')}
         </label>
       </box>
     </box>
