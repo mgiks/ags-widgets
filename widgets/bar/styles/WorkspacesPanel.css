@@ -1,3 +1,5 @@
+@import url('../../../../.cache/wal/colors.css');
+
 .workspace-container {
   min-height: 0px;
   min-width: 0px;
@@ -12,13 +14,13 @@
 }
 
 .workspace:hover {
-  background-color: #d81b1a;
+  background-color: var(--color4);
 }
 
 .focused-workspace {
-  background-color: #c10000;
+  background-color: var(--color1);
 }
 
 .occupied-workspace {
-  color: #c0c0c0;
+  color: var(--color15);
 }

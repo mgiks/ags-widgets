@@ -1,15 +1,16 @@
-import AstalBattery from "gi://AstalBattery";
-import getBatteryIconName from "./utils/getBatteryIcon";
-import { bind, Variable } from "astal";
+import AstalBattery01 from 'gi://AstalBattery'
+import getBatteryIconName from './utils/getBatteryIcon'
+import { bind, Variable } from 'astal'
 
 function Battery() {
-  const battery = AstalBattery.get_default();
+  const battery = AstalBattery01.get_default()
+  const percentage = bind(battery, 'percentage')
   const batteryIcon = Variable.derive(
-    [bind(battery, "percentage"), bind(battery, "charging")],
+    [percentage, bind(battery, 'charging')],
     (percentage, charging) => {
-      return getBatteryIconName(percentage, charging);
+      return getBatteryIconName(percentage, charging)
     },
-  );
+  )
 
   return (
     <box spacing={0}>
@@ -17,12 +18,12 @@ function Battery() {
         iconName={batteryIcon()}
       />
       <box>
-        {bind(battery, "percentage").as((
+        {percentage.as((
           percentage,
-        ) => (Math.round(percentage * 100).toString() + "%"))}
+        ) => (Math.round(percentage * 100).toString() + '%'))}
       </box>
     </box>
-  );
+  )
 }
 
-export default Battery;
+export default Battery

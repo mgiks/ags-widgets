@@ -21,23 +21,22 @@ function Workspace({ workspace }: WorkspaceType) {
   if (isOccupied || isFocused) {
     isVisible = true
   }
-  const clientTitle = Variable.derive(
-    [bind(hyprland, 'focusedWorkspace')],
-    () => {
-      const title = hyprland.get_workspace(workspace.id)
-        ?.get_clients()
-        .at(0)?.get_title()
-      if (!title) return ''
-      return title
-    },
-  )
+  // const clientTitle = Variable.derive(
+  //   [bind(hyprland, 'focusedWorkspace')],
+  //   () => {
+  //     const title = hyprland.get_workspace(workspace.id)
+  //       ?.get_clients()
+  //       .at(0)?.get_title()
+  //     if (!title) return ''
+  //     return title
+  //   },
+  // )
 
   return (
     <box
-      tooltipText={clientTitle()}
       visible={isVisible}
       cssClasses={cssClasses}
-      onButtonPressed={() => workspace.focus()}
+      onButtonReleased={() => workspace.focus()}
     >
       <label widthRequest={25}>
         {workspace.id.toString().slice(-1)}

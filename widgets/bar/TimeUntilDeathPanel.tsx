@@ -13,27 +13,26 @@ function TimeUntilDeathPanel() {
       return deathDate.difference(currentTime).valueOf()
     },
   )
-  const days = timeDiff().as((v) => (v / 1000000 / 60 / 60 / 24).toFixed(0))
+  const seconds = timeDiff().as((v) => Math.floor(v / 1000000))
+  const minutes = timeDiff().as(() => Math.floor(seconds.get() / 60))
+  const hours = timeDiff().as(() => Math.floor(minutes.get() / 60))
+  const days = timeDiff().as(() => Math.floor(hours.get() / 24))
+  const years = timeDiff().as(() => Math.floor(days.get() / 365))
 
   const toolTipText = timeDiff().as((v) => {
-    const seconds = Math.floor(v / 1000000)
-    const minutes = Math.floor(seconds / 60)
-    const hours = Math.floor(minutes / 60)
-    const days = Math.floor(hours / 24)
-    const years = Math.floor(days / 365)
+    const displayYears = years.get()
+    const displayDays = days.get() % 365
+    const displayHours = hours.get() % 24
+    const displayMinutes = minutes.get() % 60
+    const displaySeconds = seconds.get() % 60
 
-    const displayDays = days % 365
-    const displayHours = hours % 24
-    const displayMinutes = minutes % 60
-    const displaySeconds = seconds % 60
-
-    const yearLabel = years !== 1 ? 'years' : 'year'
+    const yearLabel = displayYears !== 1 ? 'years' : 'year'
     const dayLabel = displayDays !== 1 ? 'days' : 'day'
     const hourLabel = displayHours !== 1 ? 'hours' : 'hour'
     const minuteLabel = displayMinutes !== 1 ? 'minutes' : 'minute'
     const secondLabel = displaySeconds !== 1 ? 'seconds' : 'second'
 
-    const yearCount = years + ' ' + yearLabel
+    const yearCount = displayYears + ' ' + yearLabel
     const daysCount = displayDays + ' ' + dayLabel
     const hoursCount = displayHours + ' ' + hourLabel
     const minutesCount = displayMinutes + ' ' + minuteLabel
