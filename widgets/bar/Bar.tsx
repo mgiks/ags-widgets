@@ -1,9 +1,11 @@
 import { App, Astal, Gdk } from 'astal/gtk4'
 import TimePanel from './TimePanel'
-import LWBPanel from './LWBPanel'
 import WorkspacesPanel from './WorkspacesPanel'
 import CurrentAppPanel from './CurrentAppPanel'
 import TimeUntilDeathPanel from './TimeUntilDeathPanel'
+import KeyboardLanguagePanel from './KeyboardLanguagePanel'
+import WifiPanel from './WifiPanel'
+import BatteryPanel from './BatteryPanel'
 
 export default function Bar(gdkmonitor: Gdk.Monitor) {
   const { TOP, LEFT, RIGHT } = Astal.WindowAnchor
@@ -29,7 +31,9 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
         </box>
         <box spacing={spacing}>
           <TimeUntilDeathPanel />
-          <LWBPanel />
+          <WifiPanel isSeparate={true} />
+          <BatteryPanel isSeparate={true} />
+          <KeyboardLanguagePanel isSeparate={true} />
         </box>
       </centerbox>
     </window>

@@ -1,7 +1,7 @@
 import { bind, Variable } from 'astal'
 import Hyprland from 'gi://AstalHyprland'
 
-function KeyboardLanguage() {
+function KeyboardLanguagePanel({ isSeparate }: { isSeparate: boolean }) {
   const hyprland = Hyprland.get_default()
 
   let kbLayout = Variable('en')
@@ -13,8 +13,10 @@ function KeyboardLanguage() {
     },
   )
 
+  const classes = isSeparate ? ['container'] : ['']
+
   return (
-    <box spacing={3}>
+    <box cssClasses={classes} spacing={3}>
       <image iconName='globe' />
       <label>
         {bind(kbLayout())}
@@ -23,4 +25,4 @@ function KeyboardLanguage() {
   )
 }
 
-export default KeyboardLanguage
+export default KeyboardLanguagePanel

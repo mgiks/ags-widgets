@@ -2,7 +2,7 @@ import AstalBattery01 from 'gi://AstalBattery'
 import getBatteryIconName from './utils/getBatteryIcon'
 import { bind, Variable } from 'astal'
 
-function Battery() {
+function BatteryPanel({ isSeparate }: { isSeparate: boolean }) {
   const battery = AstalBattery01.get_default()
   const percentage = bind(battery, 'percentage')
   const batteryIcon = Variable.derive(
@@ -12,8 +12,10 @@ function Battery() {
     },
   )
 
+  const classes = isSeparate ? ['container'] : ['']
+
   return (
-    <box spacing={0}>
+    <box cssClasses={classes} spacing={0}>
       <image
         iconName={batteryIcon()}
       />
@@ -26,4 +28,4 @@ function Battery() {
   )
 }
 
-export default Battery
+export default BatteryPanel

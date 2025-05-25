@@ -1,6 +1,6 @@
-import Battery from './Battery'
-import KeyboardLanguage from './KeyboardLanguage'
-import Wifi from './Wifi'
+import BatteryPanel from './BatteryPanel'
+import KeyboardLanguagePanel from './KeyboardLanguagePanel'
+import WifiPanel from './WifiPanel'
 
 function LWBPanel() {
   return (
@@ -8,9 +8,9 @@ function LWBPanel() {
       spacing={8}
       cssClasses={['container']}
     >
-      <KeyboardLanguage />
-      <Wifi />
-      <Battery />
+      <KeyboardLanguagePanel isSeparate={false} />
+      <WifiPanel isSeparate={false} />
+      <BatteryPanel isSeparate={false} />
     </box>
   )
 }
