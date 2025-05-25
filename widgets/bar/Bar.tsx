@@ -1,11 +1,13 @@
 import { App, Astal, Gdk } from 'astal/gtk4'
-import TimePanel from './TimePanel'
 import WorkspacesPanel from './WorkspacesPanel'
 import CurrentAppPanel from './CurrentAppPanel'
 import TimeUntilDeathPanel from './TimeUntilDeathPanel'
 import KeyboardLanguagePanel from './KeyboardLanguagePanel'
 import WifiPanel from './WifiPanel'
 import BatteryPanel from './BatteryPanel'
+import WeekdayPanel from './WeekdayPanel'
+import DatePanel from './DatePanel'
+import TimeOfDayPanel from './TimeOfDayPanel'
 
 export default function Bar(gdkmonitor: Gdk.Monitor) {
   const { TOP, LEFT, RIGHT } = Astal.WindowAnchor
@@ -23,7 +25,9 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
     >
       <centerbox cssName='centerbox'>
         <box spacing={spacing}>
-          <TimePanel />
+          <WeekdayPanel isSeparate={true} />
+          <DatePanel isSeparate={true} />
+          <TimeOfDayPanel isSeparate={true} />
           <WorkspacesPanel />
         </box>
         <box>
