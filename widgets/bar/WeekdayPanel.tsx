@@ -14,7 +14,8 @@ function WeekdayPanel(
   const classes = isSeparate ? ['container'] : ['']
 
   return (
-    <box cssClasses={classes}>
+    <box cssClasses={classes} spacing={3}>
+      <image iconName={'weekday'} />
       <box>
         <label>{weekday()}</label>
       </box>
