@@ -2,6 +2,7 @@ import { GLib, Variable } from 'astal'
 import { Gtk } from 'astal/gtk4'
 import { getDisplayMode } from './utils/getDisplayMode'
 import { cycleDisplayMode } from './utils/cycleDisplayMode'
+import { addCommasToNumber } from './utils/addCommasToNumber'
 
 function TimeUntilDeathPanel() {
   const birthday = GLib.DateTime.new_local(2006, 8, 31, 0, 0, 0)
@@ -61,34 +62,35 @@ function TimeUntilDeathPanel() {
       minutes: number,
       seconds: number,
     ) => {
-      let data = ''
+      let timeAmount: number
       switch (displayMode) {
         case 'years':
-          data = years + ' years'
+          timeAmount = years
           break
         case 'days':
-          data = days + ' days'
+          timeAmount = days
           break
         case 'hours':
-          data = hours + ' hours'
+          timeAmount = hours
           break
         case 'minutes':
-          data = minutes + ' minutes'
+          timeAmount = minutes
           break
         case 'seconds':
-          data = seconds + ' seconds'
+          timeAmount = seconds
           break
         default:
-          data = 'unknown'
+          timeAmount = 0
           break
       }
+      const data = addCommasToNumber(timeAmount) + ' ' + displayMode
       return data
     },
   )
 
   return (
     <box
-      onButtonReleased={() => {
+      onButtonPressed={() => {
         cycleDisplayMode()
         displayMode.set(getDisplayMode())
       }}
