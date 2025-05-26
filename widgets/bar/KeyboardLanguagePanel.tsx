@@ -1,5 +1,9 @@
-import { bind, Variable } from 'astal'
+import { bind, exec, Variable } from 'astal'
 import Hyprland from 'gi://AstalHyprland'
+
+function cycleLanguage() {
+  exec("bash -c 'hyprctl switchxkblayout current next'")
+}
 
 function KeyboardLanguagePanel({ isSeparate }: { isSeparate: boolean }) {
   const hyprland = Hyprland.get_default()
@@ -16,7 +20,11 @@ function KeyboardLanguagePanel({ isSeparate }: { isSeparate: boolean }) {
   const classes = isSeparate ? ['container'] : ['']
 
   return (
-    <box cssClasses={classes} spacing={3}>
+    <box
+      onButtonPressed={() => cycleLanguage()}
+      cssClasses={classes}
+      spacing={3}
+    >
       <image iconName='globe' />
       <label>
         {bind(kbLayout())}
