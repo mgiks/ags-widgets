@@ -17,8 +17,8 @@ function CurrentAppPanel() {
 
     let focusedClientTitle = ' ' + focusedClient.title
 
-    if (focusedClientTitle.length > 70) {
-      focusedClientTitle = focusedClientTitle.slice(0, 71) + '...'
+    if (focusedClientTitle.length > 30) {
+      focusedClientTitle = focusedClientTitle.slice(0, 31) + '...'
     }
 
     if (focusedClient.workspace.name == 'special:magic') {
