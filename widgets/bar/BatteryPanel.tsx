@@ -1,5 +1,5 @@
 import AstalBattery01 from 'gi://AstalBattery'
-import getBatteryIconName from './utils/getBatteryIcon'
+import { constructBatteryIconName } from './utils/constructBatteryIconName'
 import { bind, Variable } from 'astal'
 
 function BatteryPanel({ isSeparate }: { isSeparate: boolean }) {
@@ -8,7 +8,7 @@ function BatteryPanel({ isSeparate }: { isSeparate: boolean }) {
   const batteryIcon = Variable.derive(
     [percentage, bind(battery, 'charging')],
     (percentage, charging) => {
-      return getBatteryIconName(percentage, charging)
+      return constructBatteryIconName(percentage, charging)
     },
   )
 
