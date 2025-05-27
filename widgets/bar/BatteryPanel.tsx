@@ -5,7 +5,7 @@ import { bind, Variable } from 'astal'
 function BatteryPanel({ isSeparate }: { isSeparate: boolean }) {
   const battery = AstalBattery01.get_default()
   const percentage = bind(battery, 'percentage')
-  const batteryIcon = Variable.derive(
+  const batteryIconName = Variable.derive(
     [percentage, bind(battery, 'charging')],
     (percentage, charging) => {
       return constructBatteryIconName(percentage, charging)
@@ -17,7 +17,7 @@ function BatteryPanel({ isSeparate }: { isSeparate: boolean }) {
   return (
     <box cssClasses={classes} spacing={0}>
       <image
-        iconName={batteryIcon()}
+        iconName={batteryIconName()}
       />
       <box>
         {percentage.as((
