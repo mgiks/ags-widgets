@@ -1,12 +1,13 @@
 :root {
-  --roundness: 15px;
+  --roundness: 11px;
   --gap: 10px;
+  --border-width: 2px;
 }
 
 window {
-  font-family: 'JetBrains Mono';
+  font-family: 'JetBrains Mono SemiBold';
   background-color: transparent;
-  font-size: 1em;
+  font-size: 13px;
   min-height: 1px;
 }
 
@@ -20,11 +21,40 @@ centerbox {
 .container {
   background-color: transparent;
   color: var(--color15);
-  border: 2px solid var(--color15);
+  border: var(--border-width) solid var(--color15);
   border-radius: var(--roundness);
   padding: 2px 8px;
 }
 
+.container:hover {
+  border-color: hsl(0, 0, 50%);
+}
+
 .red-symbol {
   color: var(--color1);
+}
+
+.leftmost-element {
+  border-style: solid;
+  border-color: var(--color15);
+  border-width: var(--border-width);
+  border-radius: var(--roundness);
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+.middle-element {
+  border-style: solid;
+  border-color: var(--color15);
+  border-width: var(--border-width);
+  border-radius: 0px;
+}
+
+.rightmost-element {
+  border-style: solid;
+  border-color: var(--color15);
+  border-width: var(--border-width);
+  border-radius: var(--roundness);
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
 }

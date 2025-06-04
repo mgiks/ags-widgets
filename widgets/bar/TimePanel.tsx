@@ -2,18 +2,24 @@ import { Gtk } from 'astal/gtk4'
 import WeekdayPanel from './WeekdayPanel'
 import DatePanel from './DatePanel'
 import TimeOfDayPanel from './TimeOfDayPanel'
+import { combiningPanelSpacing } from './consts'
 
 function TimePanel() {
   return (
     <box
-      spacing={8}
+      spacing={combiningPanelSpacing}
       valign={Gtk.Align.CENTER}
       halign={Gtk.Align.CENTER}
-      cssClasses={['container']}
     >
-      <WeekdayPanel isSeparate={false} />
-      <DatePanel isSeparate={false} />
-      <TimeOfDayPanel isSeparate={false} />
+      <box cssClasses={['container', 'leftmost-element']}>
+        <WeekdayPanel isSeparate={false} />
+      </box>
+      <box cssClasses={['container', 'middle-element']}>
+        <DatePanel isSeparate={false} />
+      </box>
+      <box cssClasses={['container', 'rightmost-element']}>
+        <TimeOfDayPanel isSeparate={false} />
+      </box>
     </box>
   )
 }

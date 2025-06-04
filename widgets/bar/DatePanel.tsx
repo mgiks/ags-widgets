@@ -1,4 +1,5 @@
-import { GLib, Variable } from 'astal'
+import { GLib, timeout, Variable } from 'astal'
+import { wrapWithRevealer } from './utils/wrapWithRevealer'
 
 function DatePanel(
   { isSeparate, dateFormat = '%F' }: {
@@ -20,7 +21,7 @@ function DatePanel(
     >
       <image iconName='calendar' />
       <box>
-        <label>{date()}</label>
+        {wrapWithRevealer(<label>{date()}</label>)}
       </box>
     </box>
   )

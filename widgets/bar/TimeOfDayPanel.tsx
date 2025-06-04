@@ -1,4 +1,5 @@
 import { GLib, Variable } from 'astal'
+import { wrapWithRevealer } from './utils/wrapWithRevealer'
 
 function TimeOfDayPanel(
   { isSeparate, timeOfDayFormat = '%T' }: {
@@ -20,7 +21,7 @@ function TimeOfDayPanel(
     >
       <image iconName='clock' />
       <box>
-        <label>{timeOfDay()}</label>
+        {wrapWithRevealer(<label>{timeOfDay()}</label>)}
       </box>
     </box>
   )

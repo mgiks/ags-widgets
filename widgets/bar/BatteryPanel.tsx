@@ -1,6 +1,7 @@
 import AstalBattery01 from 'gi://AstalBattery'
 import { constructBatteryIconName } from './utils/constructBatteryIconName'
 import { bind, Variable } from 'astal'
+import { wrapWithRevealer } from './utils/wrapWithRevealer'
 
 function BatteryPanel({ isSeparate }: { isSeparate: boolean }) {
   const battery = AstalBattery01.get_default()
@@ -19,11 +20,13 @@ function BatteryPanel({ isSeparate }: { isSeparate: boolean }) {
       <image
         iconName={batteryIconName()}
       />
-      <box>
-        {percentage.as((
-          percentage,
-        ) => (Math.round(percentage * 100).toString() + '%'))}
-      </box>
+      {wrapWithRevealer(
+        <box>
+          {percentage.as((
+            percentage,
+          ) => (Math.round(percentage * 100).toString() + '%'))}
+        </box>,
+      )}
     </box>
   )
 }

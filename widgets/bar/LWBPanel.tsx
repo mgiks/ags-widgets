@@ -1,16 +1,25 @@
+import { Gtk } from 'astal/gtk4'
 import BatteryPanel from './BatteryPanel'
 import KeyboardLanguagePanel from './KeyboardLanguagePanel'
 import WifiPanel from './WifiPanel'
+import { combiningPanelSpacing } from './consts'
 
 function LWBPanel() {
   return (
     <box
-      spacing={8}
-      cssClasses={['container']}
+      spacing={combiningPanelSpacing}
+      valign={Gtk.Align.CENTER}
+      halign={Gtk.Align.CENTER}
     >
-      <KeyboardLanguagePanel isSeparate={false} />
-      <WifiPanel isSeparate={false} />
-      <BatteryPanel isSeparate={false} />
+      <box cssClasses={['container', 'leftmost-element']}>
+        <KeyboardLanguagePanel isSeparate={false} />
+      </box>
+      <box cssClasses={['container', 'middle-element']}>
+        <WifiPanel isSeparate={false} />
+      </box>
+      <box cssClasses={['container', 'rightmost-element']}>
+        <BatteryPanel isSeparate={false} />
+      </box>
     </box>
   )
 }

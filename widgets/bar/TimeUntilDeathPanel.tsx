@@ -1,8 +1,13 @@
-import { GLib, Variable } from 'astal'
-import { Gtk } from 'astal/gtk4'
+import { GLib, timeout, Variable } from 'astal'
+import { Gtk, Widget } from 'astal/gtk4'
 import { getDisplayMode } from './utils/getDisplayMode'
 import { cycleDisplayMode } from './utils/cycleDisplayMode'
 import { addCommasToNumber } from './utils/addCommasToNumber'
+import { wrapWithRevealer } from './utils/wrapWithRevealer'
+import { Label } from 'astal/gtk4/widget'
+
+const shouldLeftYearsLabelBeRevealed = Variable(false)
+const redraw = Variable(false)
 
 function TimeUntilDeathPanel() {
   const birthday = GLib.DateTime.new_local(2006, 8, 31, 0, 0, 0)
@@ -22,7 +27,7 @@ function TimeUntilDeathPanel() {
   const days = timeDiff().as(() => Math.floor(hours.get() / 24))
   const years = timeDiff().as(() => Math.floor(days.get() / 365))
 
-  const toolTipText = timeDiff().as((v) => {
+  const toolTipText = timeDiff().as(() => {
     const displayYears = years.get()
     const displayDays = days.get() % 365
     const displayHours = hours.get() % 24
@@ -90,26 +95,48 @@ function TimeUntilDeathPanel() {
 
   return (
     <box
+      onHoverEnter={revealChild}
+      onHoverLeave={hideChild}
       onButtonPressed={() => {
         cycleDisplayMode()
         displayMode.set(getDisplayMode())
+        redoAnimation()
       }}
       tooltipText={toolTipText}
-      spacing={8}
+      spacing={3}
       valign={Gtk.Align.CENTER}
       halign={Gtk.Align.CENTER}
       cssClasses={['container']}
     >
       <box
         spacing={3}
+        cssClasses={redraw.get() ? ['clicked-on'] : ['']}
       >
         <image iconName='skull' />
-        <label>
-          {displayData().as((t) => t + ' left alive')}
-        </label>
+        {wrapWithRevealer(<label>{displayData()}</label>)}
       </box>
+      <revealer
+        transitionDuration={150}
+        revealChild={shouldLeftYearsLabelBeRevealed()}
+        transitionType={Gtk.RevealerTransitionType.SLIDE_LEFT}
+      >
+        <label>left alive</label>
+      </revealer>
     </box>
   )
+}
+
+function revealChild() {
+  shouldLeftYearsLabelBeRevealed.set(true)
+}
+
+function hideChild() {
+  shouldLeftYearsLabelBeRevealed.set(false)
+}
+
+function redoAnimation() {
+  redraw.set(true)
+  timeout(5000, () => redraw.set(false))
 }
 
 export default TimeUntilDeathPanel

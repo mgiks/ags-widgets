@@ -1,4 +1,5 @@
 import { GLib, Variable } from 'astal'
+import { wrapWithRevealer } from './utils/wrapWithRevealer'
 
 function WeekdayPanel(
   { isSeparate, weekdayFormat = '%A' }: {
@@ -17,7 +18,7 @@ function WeekdayPanel(
     <box cssClasses={classes} spacing={3}>
       <image iconName={'weekday'} />
       <box>
-        <label>{weekday()}</label>
+        {wrapWithRevealer(<label>{weekday()}</label>)}
       </box>
     </box>
   )

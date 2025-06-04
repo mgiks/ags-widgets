@@ -1,19 +1,25 @@
 import { bind, exec, Variable } from 'astal'
 import Hyprland from 'gi://AstalHyprland'
+import { Gtk } from 'astal/gtk4'
 
-function cycleLanguage() {
-  exec("bash -c 'hyprctl switchxkblayout current next'")
-}
+const shouldFirstChildBeRevealed = Variable(true)
+const shouldSecondChildBeRevealed = Variable(false)
 
 function KeyboardLanguagePanel({ isSeparate }: { isSeparate: boolean }) {
   const hyprland = Hyprland.get_default()
 
-  let kbLayout = Variable('en')
+  const kbLayout = Variable(shortenLanguageName(getCurrentLanguage()))
+  const firstChildKbLayout = Variable('')
+  const secondChildKbLayout = Variable('')
+
+  const tooltipText = Variable(getCurrentLanguage())
 
   hyprland.connect(
     'keyboard-layout',
-    (_: Hyprland.Hyprland, __: string, layout: string) => {
-      kbLayout.set(layout.toLowerCase().slice(0, 2))
+    (_, __, layout: string) => {
+      kbLayout.set(shortenLanguageName(layout))
+      tooltipText.set(layout)
+      getCurrentLanguage()
     },
   )
 
@@ -21,16 +27,64 @@ function KeyboardLanguagePanel({ isSeparate }: { isSeparate: boolean }) {
 
   return (
     <box
-      onButtonPressed={() => cycleLanguage()}
+      onButtonPressed={() => {
+        cycleLanguage()
+        revealSecondChild()
+        hideFirstChild()
+      }}
       cssClasses={classes}
       spacing={3}
+      tooltipText={tooltipText()}
     >
       <image iconName='globe' />
-      <label>
-        {bind(kbLayout())}
-      </label>
+      <revealer
+        revealChild={shouldFirstChildBeRevealed()}
+        transitionType={Gtk.RevealerTransitionType.SLIDE_LEFT}
+      >
+        <label>{bind(kbLayout())}</label>
+      </revealer>
+      <revealer
+        revealChild={shouldSecondChildBeRevealed()}
+        transitionType={Gtk.RevealerTransitionType.SLIDE_LEFT}
+      >
+        <label>{bind(kbLayout())}</label>
+      </revealer>
     </box>
   )
+}
+
+function revealFirstChild() {
+  shouldFirstChildBeRevealed.set(true)
+}
+
+function revealSecondChild() {
+  shouldSecondChildBeRevealed.set(true)
+}
+
+function hideFirstChild() {
+  shouldFirstChildBeRevealed.set(false)
+}
+
+function hideSecondChild() {
+  shouldSecondChildBeRevealed.set(false)
+}
+
+function cycleLanguage() {
+  exec("bash -c 'hyprctl switchxkblayout current next'")
+}
+
+function getCurrentLanguage() {
+  const result = exec(
+    `bash -c "hyprctl devices -j | jq -r '.keyboards[] | select(.main != false) | .active_keymap'"`,
+  )
+  return result
+}
+
+function shortenLanguageName(language: string) {
+  return language.toLowerCase().slice(0, 2)
+}
+
+function slideSecondLanguageIntoView() {
 }
 
 export default KeyboardLanguagePanel

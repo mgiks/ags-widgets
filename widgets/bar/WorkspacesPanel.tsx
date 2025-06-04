@@ -1,5 +1,7 @@
 import { bind, Variable } from 'astal'
+import { Gtk } from 'astal/gtk4'
 import Hyprland from 'gi://AstalHyprland'
+import { wrapWithRevealer } from './utils/wrapWithRevealer'
 
 type WorkspaceType = {
   workspace: Hyprland.Workspace
@@ -21,24 +23,16 @@ function Workspace({ workspace }: WorkspaceType) {
   if (isOccupied || isFocused) {
     isVisible = true
   }
-  // const clientTitle = Variable.derive(
-  //   [bind(hyprland, 'focusedWorkspace')],
-  //   () => {
-  //     const title = hyprland.get_workspace(workspace.id)
-  //       ?.get_clients()
-  //       .at(0)?.get_title()
-  //     if (!title) return ''
-  //     return title
-  //   },
-  // )
 
   return (
     <box
       visible={isVisible}
       cssClasses={cssClasses}
+      valign={Gtk.Align.CENTER}
+      halign={Gtk.Align.CENTER}
       onButtonReleased={() => workspace.focus()}
     >
-      <label widthRequest={25}>
+      <label>
         {workspace.id.toString().slice(-1)}
       </label>
     </box>
@@ -58,9 +52,9 @@ export default function WorkspacesPanel() {
       bind(hyprland.focusedClient, 'workspace'),
     ],
     (_, __) => {
-      return range(10).map((i) => (
-        Workspace({ workspace: Hyprland.Workspace.dummy(i + 1, null) })
-      ))
+      return range(10).map((
+        i,
+      ) => (Workspace({ workspace: Hyprland.Workspace.dummy(i + 1, null) })))
     },
   )
 

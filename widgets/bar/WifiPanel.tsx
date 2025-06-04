@@ -1,5 +1,6 @@
 import { bind } from 'astal'
 import Network from 'gi://AstalNetwork'
+import { wrapWithRevealer } from './utils/wrapWithRevealer'
 
 function WifiPanel({ isSeparate }: { isSeparate: boolean }) {
   const network = Network.get_default()
@@ -22,7 +23,9 @@ function WifiPanel({ isSeparate }: { isSeparate: boolean }) {
                 return iconName
               })}
             />
-            <label>{bind(wifi, 'ssid').as(String)}</label>
+            {wrapWithRevealer(
+              <label>{bind(wifi, 'ssid').as(String)}</label>,
+            )}
           </box>
         )
       )}
