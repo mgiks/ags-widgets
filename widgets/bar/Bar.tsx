@@ -13,6 +13,7 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
   return (
     <window
       visible
+      name={'bar'}
       resizable={true}
       cssClasses={['Bar']}
       valign={Gtk.Align.CENTER}

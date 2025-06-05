@@ -1,0 +1,12 @@
+applauncher {
+  background-color: black;
+  color: var(--color15);
+  border: var(--border-width) solid var(--color15);
+  border-radius: var(--roundness);
+  padding: 0px;
+}
+
+app-label {
+  font-family: 'JetBrains Mono Bold';
+  font-size: 13px;
+}
