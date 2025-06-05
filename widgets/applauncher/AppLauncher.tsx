@@ -43,7 +43,10 @@ function AppButton({ app }: { app: Apps.Application }) {
       }}
     >
       <box spacing={10}>
-        <image iconName={app.iconName} />
+        <image
+          icon_size={Gtk.IconSize.LARGE}
+          iconName={app.iconName}
+        />
         <box valign={Gtk.Align.CENTER} vertical>
           <label
             cssName='app-label'
