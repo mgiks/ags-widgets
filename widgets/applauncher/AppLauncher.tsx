@@ -9,6 +9,11 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
   const text = Variable('')
   const list = text((text) => apps.fuzzy_query(text).slice(0, MAX_ITEMS))
 
+  function selectFirstMatch() {
+    apps.fuzzy_query(text.get())[0].launch()
+    hide()
+  }
+
   return (
     <window
       name='applauncher'
@@ -16,25 +21,24 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
       exclusivity={Astal.Exclusivity.IGNORE}
       application={App}
       keymode={Astal.Keymode.ON_DEMAND}
-      onFocusEnter={() => {
-        text.set('')
-      }}
+      onFocusEnter={() => text.set('')}
       onKeyPressed={function (self, keyval) {
         if (keyval == Gdk.KEY_Escape) {
           self.hide()
         }
       }}
+      resizable={false}
     >
       <box
         hexpand={false}
         cssName='applauncher'
         spacing={2}
         vertical
-        widthRequest={100}
       >
         <entry
           placeholderText={'Search'}
           onNotifyText={(self) => text.set(self.text)}
+          onActivate={selectFirstMatch}
         />
         <box vertical>
           {list.as((list) => list.map((app) => <AppButton app={app} />))}
@@ -67,6 +71,7 @@ function AppButton({ app }: { app: Apps.Application }) {
             <label
               cssName='app-description'
               wrap
+              wrapMode={Gtk.WrapMode.WORD}
               xalign={0}
               label={app.description}
             />
