@@ -11,24 +11,34 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
 
   return (
     <window
-      name={'applauncher'}
-      resizable={true}
-      cssClasses={['Bar']}
-      valign={Gtk.Align.CENTER}
+      name='applauncher'
       gdkmonitor={gdkmonitor}
-      exclusivity={Astal.Exclusivity.EXCLUSIVE}
+      exclusivity={Astal.Exclusivity.IGNORE}
       application={App}
       keymode={Astal.Keymode.ON_DEMAND}
+      onFocusEnter={() => {
+        text.set('')
+      }}
+      onKeyPressed={function (self, keyval) {
+        if (keyval == Gdk.KEY_Escape) {
+          self.hide()
+        }
+      }}
     >
       <box
+        hexpand={false}
         cssName='applauncher'
         spacing={2}
         vertical
+        widthRequest={100}
       >
         <entry
           placeholderText={'Search'}
+          onNotifyText={(self) => text.set(self.text)}
         />
-        {list.as((list) => list.map((app) => <AppButton app={app} />))}
+        <box vertical>
+          {list.as((list) => list.map((app) => <AppButton app={app} />))}
+        </box>
       </box>
     </window>
   )
