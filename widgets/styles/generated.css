@@ -4,12 +4,12 @@
   --wallpaper: url('/home/mgik/.config/hypr/batman-red-moon.jpg');
 
   /* Special */
-  --background: #050505;
+  --background: #000000;
   --foreground: #c0c0c0;
   --cursor: #c0c0c0;
 
   /* Colors */
-  --color0: #050505;
+  --color0: #000000;
   --color1: #c10000;
   --color2: #f20100;
   --color3: #fe1612;

@@ -29,8 +29,6 @@ function KeyboardLanguagePanel({ isSeparate }: { isSeparate: boolean }) {
     <box
       onButtonPressed={() => {
         cycleLanguage()
-        revealSecondChild()
-        hideFirstChild()
       }}
       cssClasses={classes}
       spacing={3}
@@ -53,22 +51,6 @@ function KeyboardLanguagePanel({ isSeparate }: { isSeparate: boolean }) {
   )
 }
 
-function revealFirstChild() {
-  shouldFirstChildBeRevealed.set(true)
-}
-
-function revealSecondChild() {
-  shouldSecondChildBeRevealed.set(true)
-}
-
-function hideFirstChild() {
-  shouldFirstChildBeRevealed.set(false)
-}
-
-function hideSecondChild() {
-  shouldSecondChildBeRevealed.set(false)
-}
-
 function cycleLanguage() {
   exec("bash -c 'hyprctl switchxkblayout current next'")
 }
@@ -82,9 +64,6 @@ function getCurrentLanguage() {
 
 function shortenLanguageName(language: string) {
   return language.toLowerCase().slice(0, 2)
-}
-
-function slideSecondLanguageIntoView() {
 }
 
 export default KeyboardLanguagePanel

@@ -1,12 +1,43 @@
-applauncher {
+:root {
+  --section-height: 50px;
+}
+
+app-launcher {
   background-color: black;
   color: var(--color15);
   border: var(--border-width) solid var(--color15);
   border-radius: var(--roundness);
   padding: 0px;
+  min-width: 500px;
+  min-height: calc(var(--section-height) * 6 + 28px);
 }
 
 app-label {
-  font-family: 'JetBrains Mono Bold';
-  font-size: 13px;
+  font-family: 'JetBrains Mono SemiBold';
+  font-size: 1em;
+}
+
+app-button {
+  min-height: var(--section-height);
+  padding: 2px 8px;
+  border-bottom: 1px solid white;
+  border-radius: (--roundness);
+}
+
+app-to-be-opened {
+  min-height: var(--section-height);
+  padding: 2px 8px;
+  border-bottom: 1px solid white;
+  border-color: red;
+}
+
+search {
+  min-height: var(--section-height);
+  background-color: transparent;
+  padding-left: 10px;
+  border-bottom: 1px solid white;
+}
+
+app-description {
+  font-size: 0.8em;
 }
