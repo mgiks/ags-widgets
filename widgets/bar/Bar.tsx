@@ -28,7 +28,10 @@ export default function Bar({ gdkmonitor }: { gdkmonitor: Gdk.Monitor }) {
       anchor={TOP | LEFT | RIGHT}
       application={app}
     >
-      <Gtk.CenterBox orientation={Gtk.Orientation.HORIZONTAL}>
+      <Gtk.CenterBox
+        cssClasses={['centerbox']}
+        orientation={Gtk.Orientation.HORIZONTAL}
+      >
         <Gtk.Box spacing={spacing} $type='start'>
           <WeekdayPanel />
           <DatePanel />
