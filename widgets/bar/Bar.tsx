@@ -10,6 +10,7 @@ import PowerOffButton from './PowerOffButton'
 import BatteryPanel from './BatteryPanel'
 import WifiPanel from './WifiPanel'
 import KeyboardLanguagePanel from './KeyboardLanguagePanel'
+import MusicVisualizer from './MusicVisualizer'
 
 export default function Bar({ gdkmonitor }: { gdkmonitor: Gdk.Monitor }) {
   const spacing = 7
@@ -33,7 +34,7 @@ export default function Bar({ gdkmonitor }: { gdkmonitor: Gdk.Monitor }) {
           <DatePanel />
           <TimeOfDayPanel />
           <WorkspacesPanel />
-          {/* <MusicVisualizer /> */}
+          <MusicVisualizer />
         </Gtk.Box>
         <Gtk.Box spacing={spacing} $type='center'>
           <CurrentAppPanel />
