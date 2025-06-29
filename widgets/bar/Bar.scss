@@ -1,0 +1,51 @@
+@use '../../utility-styles/_shared-styles.scss' as shared;
+@use '../../utility-styles/_generated-colors.scss' as colors;
+@use '../../utility-styles/_style-variables.scss' as vars;
+
+.workspaces-panel {
+  padding: 0px;
+
+  &__workspace {
+    color: black;
+    background-color: transparent;
+    border-radius: vars.$roundness;
+    min-height: 0px;
+    padding: 2px 6px;
+
+    &:hover {
+      background-color: colors.$color4;
+    }
+
+    &_focused {
+      background-color: colors.$color1;
+    }
+
+    &_occupied {
+      color: colors.$color15;
+    }
+  }
+}
+
+.music-visualizer-panel {
+  padding: 0px;
+
+  &__bar {
+    background-color: transparent;
+    border-radius: 0px;
+    border: 1px solid transparent;
+  }
+
+  &__bar block {
+    background-color: transparent;
+    min-width: 0px;
+  }
+
+  &__bar block.filled {
+    border-radius: 0px;
+    background-color: colors.$color15;
+  }
+}
+
+.poweroff-button {
+  padding: 2px 5px;
+}

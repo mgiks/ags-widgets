@@ -1,0 +1,33 @@
+@use './_style-variables.scss' as vars;
+@use './_generated-colors.scss' as colors;
+
+.widget {
+  font-family: 'JetBrains Mono SemiBold';
+  background-color: transparent;
+  font-size: 13px;
+}
+
+.centerbox {
+  border-radius: vars.$roundness;
+  background-color: transparent;
+  margin: 0px vars.$gap;
+  min-height: 1px;
+}
+
+.panel {
+  min-height: 0px;
+  min-width: 0px;
+  background-color: transparent;
+  color: colors.$color15;
+  border: vars.$border-width solid colors.$color15;
+  border-radius: vars.$roundness;
+  padding: 2px 8px;
+
+  &:hover {
+    border-color: hsl(0deg, 0%, 50%);
+  }
+}
+
+.red-symbol {
+  color: colors.$color1;
+}

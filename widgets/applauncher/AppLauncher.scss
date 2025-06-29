@@ -1,0 +1,64 @@
+@use '../../utility-styles/_shared-styles.scss' as shared;
+@use '../../utility-styles/_generated-colors.scss' as colors;
+@use '../../utility-styles/_style-variables.scss' as vars;
+
+$app-button-height: 60px;
+$app-search-height: 70px;
+$app-number-to-show: 5;
+
+.app-launcher {
+  background-color: black;
+  color: colors.$color15;
+  border: vars.$border-width solid colors.$color15;
+  border-radius: vars.$roundness;
+  padding: 0px;
+  min-width: 500px;
+  min-height: calc(
+    ($app-button-height + 2px) * $app-number-to-show + $app-search-height
+  );
+
+  &__failed-search {
+    background-color: transparent;
+  }
+
+  &__app-list {
+    background-color: transparent;
+  }
+}
+
+.app-search {
+  background-color: transparent;
+  min-height: $app-search-height;
+
+  &__entry {
+    border: none;
+    border-radius: 0px;
+    background-color: transparent;
+  }
+
+  &__entry:focus-within {
+    box-shadow: none;
+    background-color: transparent;
+    border-color: transparent;
+    outline: none;
+  }
+}
+
+.app-button {
+  min-height: $app-button-height;
+  padding: 0px;
+  padding-left: 5px;
+  border-top: 1px solid colors.$color15;
+  border-bottom: 1px solid colors.$color15;
+  border-radius: vars.$roundness;
+  background-color: transparent;
+
+  &__label {
+    font-family: 'JetBrains Mono SemiBold';
+    font-size: 1em;
+  }
+
+  &__description {
+    font-size: 0.8em;
+  }
+}
