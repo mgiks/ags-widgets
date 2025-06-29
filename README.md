@@ -24,5 +24,5 @@ Custom widgets powered by [Astal](https://github.com/Aylur/astal) and [AGS](http
 
 4. **Run**:
    ```sh
-   asg run --gtk4
+   asg run
    ```
