@@ -13,7 +13,7 @@ export default function AppLauncher(
   { gdkmonitor }: { gdkmonitor: Gdk.Monitor },
 ) {
   return (
-    <Astal.Window
+    <window
       name={WINDOW_NAME}
       cssClasses={['widget']}
       gdkmonitor={gdkmonitor}
@@ -29,15 +29,15 @@ export default function AppLauncher(
           }
         }}
       />
-      <Gtk.Box
+      <box
         hexpand={true}
         cssClasses={['app-launcher']}
         orientation={Gtk.Orientation.VERTICAL}
       >
         <SearchEntry />
         <AppList />
-      </Gtk.Box>
-    </Astal.Window>
+      </box>
+    </window>
   )
 }
 
@@ -48,8 +48,8 @@ function SearchEntry() {
   }
 
   return (
-    <Gtk.Overlay cssClasses={['app-search']}>
-      <Gtk.Entry
+    <overlay cssClasses={['app-search']}>
+      <entry
         $type='overlay'
         vexpand
         cssClasses={['app-search__entry']}
@@ -59,7 +59,7 @@ function SearchEntry() {
         onNotifyText={(self) => seQuery(self.text)}
         onActivate={onEnter}
       />
-    </Gtk.Overlay>
+    </overlay>
   )
 }
 
@@ -67,12 +67,12 @@ function AppList() {
   const appList = query((query) => apps.fuzzy_query(query))
 
   return (
-    <Gtk.ScrolledWindow vexpand>
-      <Gtk.Box orientation={Gtk.Orientation.VERTICAL}>
+    <scrolledwindow vexpand>
+      <box orientation={Gtk.Orientation.VERTICAL}>
         <For each={appList}>
           {(app, i) => <AppButton app={app} appIndex={i.get()} />}
         </For>
-        <Gtk.Box
+        <box
           halign={Gtk.Align.CENTER}
           valign={Gtk.Align.CENTER}
           cssClasses={['app-launcher__failed-search']}
@@ -80,14 +80,14 @@ function AppList() {
           vexpand
           visible={appList((l) => l.length === 0)}
         >
-          <Gtk.Image
+          <image
             iconName='system-search'
             iconSize={Gtk.IconSize.LARGE}
           />
-          <Gtk.Label label='No match found' />
-        </Gtk.Box>
-      </Gtk.Box>
-    </Gtk.ScrolledWindow>
+          <label label='No match found' />
+        </box>
+      </box>
+    </scrolledwindow>
   )
 }
 
@@ -95,37 +95,37 @@ function AppButton(
   { app, appIndex }: { app: Apps.Application; appIndex: number },
 ) {
   return (
-    <Gtk.Button
+    <button
       cssClasses={['app-button']}
       onClicked={() => {
         hide()
         app.launch()
       }}
     >
-      <Gtk.Box spacing={4}>
-        {appIndex == 0 && <Gtk.Box cssClasses={['red-symbol']}>{''}</Gtk.Box>}
-        <Gtk.Image icon_size={Gtk.IconSize.LARGE} iconName={app.iconName} />
-        <Gtk.Box
+      <box spacing={4}>
+        {appIndex == 0 && <box cssClasses={['red-symbol']}>{''}</box>}
+        <image icon_size={Gtk.IconSize.LARGE} iconName={app.iconName} />
+        <box
           valign={Gtk.Align.CENTER}
           orientation={Gtk.Orientation.VERTICAL}
         >
-          <Gtk.Label
+          <label
             cssClasses={['app-button__label']}
             ellipsize={Pango.EllipsizeMode.END}
             xalign={0}
             label={app.name}
           />
           {app.description && (
-            <Gtk.Label
+            <label
               cssClasses={['app-button__description']}
               wrap
               xalign={0}
               label={app.description}
             />
           )}
-        </Gtk.Box>
-      </Gtk.Box>
-    </Gtk.Button>
+        </box>
+      </box>
+    </button>
   )
 }
 

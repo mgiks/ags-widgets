@@ -6,7 +6,7 @@ const [hovered, setHovered] = createState(false)
 
 function PowerOffButton() {
   return (
-    <Gtk.Box
+    <box
       valign={Gtk.Align.CENTER}
       halign={Gtk.Align.CENTER}
       cssClasses={['panel', 'poweroff-button']}
@@ -17,15 +17,15 @@ function PowerOffButton() {
         onLeave={() => setHovered(false)}
       />
 
-      <Gtk.Image iconName={'power-button'} />
-      <Gtk.Revealer
+      <image iconName={'power-button'} />
+      <revealer
         transitionDuration={150}
         revealChild={hovered}
         transitionType={Gtk.RevealerTransitionType.SLIDE_RIGHT}
       >
-        <Gtk.Label label=' Poweroff' />
-      </Gtk.Revealer>
-    </Gtk.Box>
+        <label label=' Poweroff' />
+      </revealer>
+    </box>
   )
 }
 

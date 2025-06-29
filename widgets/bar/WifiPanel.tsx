@@ -11,16 +11,16 @@ function WifiPanel() {
   })
 
   return (
-    <Gtk.Box
+    <box
       valign={Gtk.Align.CENTER}
       halign={Gtk.Align.CENTER}
       cssClasses={['panel']}
     >
-      <Gtk.Box spacing={3}>
-        <Gtk.Image iconName={iconName} />
-        <Gtk.Label label={ssid} />
-      </Gtk.Box>
-    </Gtk.Box>
+      <box spacing={3}>
+        <image iconName={iconName} />
+        <label label={ssid} />
+      </box>
+    </box>
   )
 }
 

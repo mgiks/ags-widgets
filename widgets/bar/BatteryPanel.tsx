@@ -15,18 +15,18 @@ function BatteryPanel() {
   )
 
   return (
-    <Gtk.Box
+    <box
       valign={Gtk.Align.CENTER}
       halign={Gtk.Align.CENTER}
       cssClasses={['panel']}
     >
-      <Gtk.Image
+      <image
         iconName={batteryIconName}
       />
-      <Gtk.Box>
-        <Gtk.Label label={percentage} />
-      </Gtk.Box>
-    </Gtk.Box>
+      <box>
+        <label label={percentage} />
+      </box>
+    </box>
   )
 }
 

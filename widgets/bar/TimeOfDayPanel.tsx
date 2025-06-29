@@ -10,17 +10,17 @@ function TimeOfDayPanel() {
   )
 
   return (
-    <Gtk.Box
+    <box
       valign={Gtk.Align.CENTER}
       halign={Gtk.Align.CENTER}
       cssClasses={['panel']}
       spacing={3}
     >
-      <Gtk.Image iconName='clock' />
-      <Gtk.Box>
-        <Gtk.Label label={timeOfDay} />
-      </Gtk.Box>
-    </Gtk.Box>
+      <image iconName='clock' />
+      <box>
+        <label label={timeOfDay} />
+      </box>
+    </box>
   )
 }
 

@@ -93,7 +93,7 @@ function TimeUntilDeathPanel() {
   const [hovered, setHovered] = createState(false)
 
   return (
-    <Gtk.Box
+    <box
       tooltipText={toolTipText}
       valign={Gtk.Align.CENTER}
       halign={Gtk.Align.CENTER}
@@ -105,18 +105,18 @@ function TimeUntilDeathPanel() {
         onLeave={() => setHovered(false)}
       />
 
-      <Gtk.Box spacing={3}>
-        <Gtk.Image iconName='skull' />
-        <Gtk.Label label={displayData} />
-      </Gtk.Box>
-      <Gtk.Revealer
+      <box spacing={3}>
+        <image iconName='skull' />
+        <label label={displayData} />
+      </box>
+      <revealer
         transitionDuration={150}
         revealChild={hovered}
         transitionType={Gtk.RevealerTransitionType.SLIDE_LEFT}
       >
-        <Gtk.Label label={' left alive'} />
-      </Gtk.Revealer>
-    </Gtk.Box>
+        <label label={' left alive'} />
+      </revealer>
+    </box>
   )
 }
 

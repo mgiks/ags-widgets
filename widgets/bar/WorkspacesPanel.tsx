@@ -24,7 +24,7 @@ function WorkspacesPanel() {
   )
 
   return (
-    <Gtk.Box
+    <box
       valign={Gtk.Align.CENTER}
       halign={Gtk.Align.CENTER}
       cssClasses={['panel', 'workspaces-panel']}
@@ -32,7 +32,7 @@ function WorkspacesPanel() {
       <For each={workspaces}>
         {(workspace) => workspace}
       </For>
-    </Gtk.Box>
+    </box>
   )
 }
 
@@ -56,7 +56,7 @@ function Workspace({ workspace }: WorkspaceType) {
   }
 
   return (
-    <Gtk.Box
+    <box
       visible={isVisible}
       cssClasses={cssClasses}
       valign={Gtk.Align.CENTER}
@@ -64,8 +64,8 @@ function Workspace({ workspace }: WorkspaceType) {
     >
       <Gtk.GestureClick onPressed={() => workspace.focus()} />
 
-      <Gtk.Label label={workspace.id.toString().slice(-1)} />
-    </Gtk.Box>
+      <label label={workspace.id.toString().slice(-1)} />
+    </box>
   )
 }
 

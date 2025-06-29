@@ -17,7 +17,7 @@ export default function Bar({ gdkmonitor }: { gdkmonitor: Gdk.Monitor }) {
   const { TOP, LEFT, RIGHT } = Astal.WindowAnchor
 
   return (
-    <Astal.Window
+    <window
       visible
       name={'bar'}
       cssClasses={['widget']}
@@ -28,28 +28,28 @@ export default function Bar({ gdkmonitor }: { gdkmonitor: Gdk.Monitor }) {
       anchor={TOP | LEFT | RIGHT}
       application={app}
     >
-      <Gtk.CenterBox
+      <centerbox
         cssClasses={['centerbox']}
         orientation={Gtk.Orientation.HORIZONTAL}
       >
-        <Gtk.Box spacing={spacing} $type='start'>
+        <box spacing={spacing} $type='start'>
           <WeekdayPanel />
           <DatePanel />
           <TimeOfDayPanel />
           <WorkspacesPanel />
           <MusicVisualizer />
-        </Gtk.Box>
-        <Gtk.Box spacing={spacing} $type='center'>
+        </box>
+        <box spacing={spacing} $type='center'>
           <CurrentAppPanel />
-        </Gtk.Box>
-        <Gtk.Box spacing={spacing} $type='end'>
+        </box>
+        <box spacing={spacing} $type='end'>
           <TimeUntilDeathPanel />
           <KeyboardLanguagePanel />
           <WifiPanel />
           <BatteryPanel />
           <PowerOffButton />
-        </Gtk.Box>
-      </Gtk.CenterBox>
-    </Astal.Window>
+        </box>
+      </centerbox>
+    </window>
   )
 }

@@ -10,17 +10,17 @@ function DatePanel() {
   )
 
   return (
-    <Gtk.Box
+    <box
       cssClasses={['panel']}
       spacing={2}
       halign={Gtk.Align.CENTER}
       valign={Gtk.Align.CENTER}
     >
-      <Gtk.Image iconName='calendar' />
-      <Gtk.Box>
-        <Gtk.Label label={date} />
-      </Gtk.Box>
-    </Gtk.Box>
+      <image iconName='calendar' />
+      <box>
+        <label label={date} />
+      </box>
+    </box>
   )
 }
 

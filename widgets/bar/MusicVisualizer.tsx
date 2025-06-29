@@ -21,15 +21,15 @@ function MusicVisualizer() {
   }
 
   return (
-    <Gtk.Revealer
+    <revealer
       revealChild={isMusicPlaying}
       transitionType={Gtk.RevealerTransitionType.SLIDE_RIGHT}
       transitionDuration={150}
     >
-      <Gtk.Box cssClasses={['panel', 'music-visualizer-panel']}>
+      <box cssClasses={['panel', 'music-visualizer-panel']}>
         <For each={barHeights}>
           {(height, _) => (
-            <Gtk.LevelBar
+            <levelbar
               cssClasses={['music-visualizer-panel__bar']}
               value={height}
               orientation={Gtk.Orientation.VERTICAL}
@@ -38,8 +38,8 @@ function MusicVisualizer() {
             />
           )}
         </For>
-      </Gtk.Box>
-    </Gtk.Revealer>
+      </box>
+    </revealer>
   )
 }
 

@@ -25,16 +25,16 @@ function CurrentAppPanel() {
   )
 
   return (
-    <Gtk.Box
+    <box
       valign={Gtk.Align.CENTER}
       halign={Gtk.Align.CENTER}
       cssClasses={['panel']}
       tooltipText={toolTipText}
     >
-      <Gtk.Label cssClasses={['red-symbol']} label={'󰣇'} />
-      <Gtk.Label label={currentAppTitle} />
-      {isOnSpecialWorkspace.get() && <Gtk.Label label={' S'} />}
-    </Gtk.Box>
+      <label cssClasses={['red-symbol']} label={'󰣇'} />
+      <label label={currentAppTitle} />
+      {isOnSpecialWorkspace.get() && <label label={' S'} />}
+    </box>
   )
 }
 

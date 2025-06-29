@@ -22,7 +22,7 @@ function KeyboardLanguagePanel() {
   )
 
   return (
-    <Gtk.Box
+    <box
       cssClasses={['panel']}
       spacing={3}
       tooltipText={tooltipText}
@@ -30,9 +30,9 @@ function KeyboardLanguagePanel() {
       halign={Gtk.Align.CENTER}
     >
       <Gtk.GestureClick onPressed={cycleLanguage} />
-      <Gtk.Image iconName='globe' />
-      <Gtk.Label label={kbLayout} />
-    </Gtk.Box>
+      <image iconName='globe' />
+      <label label={kbLayout} />
+    </box>
   )
 }
 

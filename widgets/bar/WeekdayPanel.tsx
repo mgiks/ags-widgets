@@ -10,17 +10,17 @@ function WeekdayPanel() {
   )
 
   return (
-    <Gtk.Box
+    <box
       valign={Gtk.Align.CENTER}
       halign={Gtk.Align.CENTER}
       cssClasses={['panel']}
       spacing={3}
     >
-      <Gtk.Image iconName={'weekday'} />
-      <Gtk.Box>
-        <Gtk.Label label={weekday} />
-      </Gtk.Box>
-    </Gtk.Box>
+      <image iconName={'weekday'} />
+      <box>
+        <label label={weekday} />
+      </box>
+    </box>
   )
 }
 
