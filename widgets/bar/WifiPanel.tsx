@@ -5,7 +5,7 @@ import Gtk from 'gi://Gtk?version=4.0'
 function WifiPanel() {
   const network = Network.get_default()
   const wifi = createBinding(network, 'wifi')
-  const ssid = wifi.as((wifi) => wifi.ssid)
+  const ssid = createBinding(network.wifi, 'ssid')
   const iconName = wifi.as((wifi) => {
     return wifi.iconName.replace('symbolic', 'custom')
   })
