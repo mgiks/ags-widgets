@@ -5,7 +5,7 @@ import Apps from 'gi://AstalApps'
 import Pango from 'gi://Pango?version=1.0'
 
 const apps = new Apps.Apps()
-const [query, seQuery] = createState('')
+const [query, setQuery] = createState('')
 
 const WINDOW_NAME = 'app-launcher'
 
@@ -56,7 +56,7 @@ function SearchEntry() {
         primaryIconName={'system-search'}
         placeholderText='Search...'
         text={query.get()}
-        onNotifyText={(self) => seQuery(self.text)}
+        onNotifyText={(self) => setQuery(self.text)}
         onActivate={onEnter}
       />
     </overlay>
