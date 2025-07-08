@@ -103,7 +103,7 @@ function AppButton(
       }}
     >
       <box spacing={4}>
-        {appIndex == 0 && <box cssClasses={['red-symbol']}>{''}</box>}
+        {appIndex == 0 && <SelectedAppIndicator />}
         <image icon_size={Gtk.IconSize.LARGE} iconName={app.iconName} />
         <box
           valign={Gtk.Align.CENTER}
@@ -127,6 +127,10 @@ function AppButton(
       </box>
     </button>
   )
+}
+
+function SelectedAppIndicator() {
+  return <box cssClasses={['red-symbol']}>{''}</box>
 }
 
 function hide() {
