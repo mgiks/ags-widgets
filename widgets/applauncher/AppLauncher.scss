@@ -7,7 +7,7 @@ $app-search-height: 70px;
 $app-number-to-show: 5;
 
 .app-launcher {
-  background-color: black;
+  background-color: rgba($color: black, $alpha: 0.8);
   color: colors.$color15;
   border: vars.$border-width solid colors.$color15;
   border-radius: vars.$roundness;
