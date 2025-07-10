@@ -129,7 +129,9 @@ function AppButton({ app, appIndex }: AppButtonProps) {
               cssClasses={['app-button__description']}
               wrap
               xalign={0}
-              label={app.description}
+              label={app.description.length > 60
+                ? app.description.slice(0, 60).trimEnd() + '...'
+                : app.description}
             />
           )}
         </box>
