@@ -4,10 +4,10 @@ import app from 'ags/gtk4/app'
 import Apps from 'gi://AstalApps'
 import Pango from 'gi://Pango?version=1.0'
 
+const WINDOW_NAME = 'app-launcher'
+
 const apps = new Apps.Apps()
 const [query, setQuery] = createState('')
-
-const WINDOW_NAME = 'app-launcher'
 
 export default function AppLauncher(
   { gdkmonitor }: { gdkmonitor: Gdk.Monitor },
