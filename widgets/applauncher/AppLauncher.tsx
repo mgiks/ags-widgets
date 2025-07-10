@@ -42,9 +42,11 @@ export default function AppLauncher(
   )
 }
 
+const appList = query((q) => apps.fuzzy_query(q))
+
 function SearchEntry() {
   const onEnter = () => {
-    query((q) => apps.fuzzy_query(q)[0].launch())
+    appList.get()[0].launch()
     hide()
   }
 
@@ -65,8 +67,6 @@ function SearchEntry() {
 }
 
 function AppList() {
-  const appList = query((q) => apps.fuzzy_query(q))
-
   return (
     <scrolledwindow vexpand>
       <box orientation={Gtk.Orientation.VERTICAL}>
