@@ -1,4 +1,4 @@
-import { createState, For } from 'ags'
+import { Accessor, createState, For } from 'ags'
 import { Astal, Gdk, Gtk } from 'ags/gtk4'
 import app from 'ags/gtk4/app'
 import Apps from 'gi://AstalApps'
@@ -44,7 +44,7 @@ export default function AppLauncher(
 
 function SearchEntry() {
   const onEnter = () => {
-    query.as((q) => apps.fuzzy_query(q)[0].launch())
+    query((q) => apps.fuzzy_query(q)[0].launch())
     hide()
   }
 
@@ -65,13 +65,13 @@ function SearchEntry() {
 }
 
 function AppList() {
-  const appList = query((query) => apps.fuzzy_query(query))
+  const appList = query((q) => apps.fuzzy_query(q))
 
   return (
     <scrolledwindow vexpand>
       <box orientation={Gtk.Orientation.VERTICAL}>
         <For each={appList}>
-          {(app, i) => <AppButton app={app} appIndex={i.get()} />}
+          {(app, i) => <AppButton app={app} appIndex={i} />}
         </For>
         <box
           halign={Gtk.Align.CENTER}
@@ -92,9 +92,12 @@ function AppList() {
   )
 }
 
-function AppButton(
-  { app, appIndex }: { app: Apps.Application; appIndex: number },
-) {
+type AppButtonProps = {
+  app: Apps.Application
+  appIndex: Accessor<number>
+}
+
+function AppButton({ app, appIndex }: AppButtonProps) {
   return (
     <button
       cssClasses={['app-button']}
@@ -104,7 +107,12 @@ function AppButton(
       }}
     >
       <box spacing={4}>
-        {appIndex == 0 && <SelectedAppIndicator />}
+        <box
+          visible={appIndex((i) => i == 0)}
+          cssClasses={['red-symbol']}
+        >
+          {''}
+        </box>
         <image icon_size={Gtk.IconSize.LARGE} iconName={app.iconName} />
         <box
           valign={Gtk.Align.CENTER}
@@ -128,10 +136,6 @@ function AppButton(
       </box>
     </button>
   )
-}
-
-function SelectedAppIndicator() {
-  return <box cssClasses={['red-symbol']}>{''}</box>
 }
 
 function hide() {
