@@ -21,6 +21,7 @@ export default function AppLauncher(
       exclusivity={Astal.Exclusivity.NORMAL}
       keymode={Astal.Keymode.EXCLUSIVE}
       resizable={false}
+      onNotifyVisible={() => setQuery('')}
     >
       <Gtk.EventControllerKey
         onKeyPressed={({ widget }, keyval: number) => {
@@ -43,7 +44,7 @@ export default function AppLauncher(
 
 function SearchEntry() {
   const onEnter = () => {
-    apps.fuzzy_query(query.get())[0].launch()
+    query.as((q) => apps.fuzzy_query(q)[0].launch())
     hide()
   }
 
@@ -55,7 +56,7 @@ function SearchEntry() {
         cssClasses={['app-search__entry']}
         primaryIconName={'system-search'}
         placeholderText='Search...'
-        text={query.get()}
+        text={query}
         onNotifyText={(self) => setQuery(self.text)}
         onActivate={onEnter}
       />
