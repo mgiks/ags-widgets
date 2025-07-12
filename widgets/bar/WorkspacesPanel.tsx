@@ -1,4 +1,4 @@
-import { createBinding, createComputed } from 'ags'
+import { createBinding, createComputed, For } from 'ags'
 import { Gtk } from 'ags/gtk4'
 import Hyprland from 'gi://AstalHyprland'
 
@@ -9,15 +9,29 @@ function WorkspacesPanel() {
     return [...Array(max).keys()]
   }
 
+  const workspaces = createComputed(
+    [
+      createBinding(hyprland, 'focusedWorkspace'),
+      createBinding(hyprland, 'clients'),
+      createBinding(hyprland, 'focusedClient'),
+      createBinding(hyprland.focusedClient, 'workspace'),
+    ],
+    () => {
+      return range(10).map((
+        i,
+      ) => (Workspace({ workspace: Hyprland.Workspace.dummy(i + 1, null) })))
+    },
+  )
+
   return (
     <box
       valign={Gtk.Align.CENTER}
       halign={Gtk.Align.CENTER}
       cssClasses={['panel', 'workspaces-panel']}
     >
-      {range(10).map((i) => (
-        <Workspace workspace={Hyprland.Workspace.dummy(i + 1, null)} />
-      ))}
+      <For each={workspaces}>
+        {(workspace) => workspace}
+      </For>
     </box>
   )
 }
@@ -27,34 +41,19 @@ type WorkspaceType = {
 }
 
 function Workspace({ workspace }: WorkspaceType) {
-  const focusedWorkspace = createBinding(hyprland, 'focusedWorkspace')
-  const clients = createBinding(hyprland, 'clients')
+  let cssClasses = ['workspaces-panel__workspace']
 
-  const isOccupied = clients((clients) =>
-    clients.filter((client) => client.workspace.id == workspace.id).length > 0
-  )
+  const isOccupied = hyprland.get_workspace(workspace.id)?.get_clients().length
+  isOccupied && cssClasses.push('workspaces-panel__workspace_occupied')
 
-  const isFocused = focusedWorkspace((focusedWorkspace) => {
-    const isFocused = focusedWorkspace.id == workspace.id
-    return isFocused
-  })
+  const isFocused = hyprland.focusedWorkspace.id == workspace.id
+  isFocused && cssClasses.push('workspaces-panel__workspace_focused')
 
-  const isVisible = createComputed([
-    isFocused,
-    isOccupied,
-  ], (focused, occupied) => focused || occupied)
+  let isVisible = false
 
-  const cssClasses = createComputed([
-    isFocused,
-    isOccupied,
-  ], (focused, occupied) => {
-    const classes = ['workspaces-panel__workspace']
-
-    focused && classes.push('workspaces-panel__workspace_focused')
-    occupied && classes.push('workspaces-panel__workspace_occupied')
-
-    return classes
-  })
+  if (isOccupied || isFocused) {
+    isVisible = true
+  }
 
   return (
     <box
@@ -64,6 +63,7 @@ function Workspace({ workspace }: WorkspaceType) {
       halign={Gtk.Align.CENTER}
     >
       <Gtk.GestureClick onPressed={() => workspace.focus()} />
+
       <label label={workspace.id.toString().slice(-1)} />
     </box>
   )
