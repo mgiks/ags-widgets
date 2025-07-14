@@ -72,7 +72,10 @@ function SearchEntry() {
         primaryIconName={'system-search'}
         placeholderText='Search...'
         text={query}
-        onNotifyText={(self) => setQuery(self.text)}
+        onNotifyText={(self) => {
+          setCurrentAppIndex(0)
+          setQuery(self.text)
+        }}
         onActivate={onEnter}
       />
     </overlay>
