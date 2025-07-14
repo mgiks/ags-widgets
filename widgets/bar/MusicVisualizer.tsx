@@ -16,7 +16,10 @@ function MusicVisualizer() {
 
       setIsMusicPlaying(minSoundVal > 1e-10)
 
-      setBarHeight(cava.get_values())
+      // To prevent annoying logging about dublicate values
+      const noDublicateHeights = Array.from(new Set(cava.get_values()))
+
+      setBarHeight(noDublicateHeights)
     })
   }
 
