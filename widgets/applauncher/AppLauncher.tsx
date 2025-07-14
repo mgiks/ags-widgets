@@ -1,4 +1,4 @@
-import { Accessor, createState, For } from 'ags'
+import { Accessor, createComputed, createState, For } from 'ags'
 import { Astal, Gdk, Gtk } from 'ags/gtk4'
 import app from 'ags/gtk4/app'
 import Apps from 'gi://AstalApps'
@@ -8,6 +8,7 @@ const WINDOW_NAME = 'app-launcher'
 
 const apps = new Apps.Apps()
 const [query, setQuery] = createState('')
+const [currentAppIndex, setCurrentAppIndex] = createState(0)
 
 export default function AppLauncher(
   { gdkmonitor }: { gdkmonitor: Gdk.Monitor },
@@ -24,9 +25,21 @@ export default function AppLauncher(
       onNotifyVisible={() => setQuery('')}
     >
       <Gtk.EventControllerKey
-        onKeyPressed={({ widget }, keyval: number) => {
-          if (keyval == Gdk.KEY_Escape) {
-            widget.hide()
+        onKeyPressed={({ widget }, keyval, _, mod) => {
+          switch (keyval) {
+            case (Gdk.KEY_Escape):
+              widget.hide()
+              break
+            case (Gdk.KEY_j):
+              mod == Gdk.ModifierType.CONTROL_MASK &&
+                setCurrentAppIndex((i) =>
+                  i < appList.get().length - 1 ? i + 1 : i
+                )
+              break
+            case (Gdk.KEY_k):
+              mod == Gdk.ModifierType.CONTROL_MASK &&
+                setCurrentAppIndex((i) => i > 0 ? i - 1 : i)
+              break
           }
         }}
       />
@@ -46,7 +59,7 @@ const appList = query((q) => apps.fuzzy_query(q))
 
 function SearchEntry() {
   const onEnter = () => {
-    appList.get()[0].launch()
+    appList.get()[currentAppIndex.get()].launch()
     hide()
   }
 
@@ -108,7 +121,10 @@ function AppButton({ app, appIndex }: AppButtonProps) {
     >
       <box spacing={4}>
         <box
-          visible={appIndex((i) => i == 0)}
+          visible={createComputed(
+            [appIndex, currentAppIndex],
+            (appIndex, currentAppIndex) => appIndex == currentAppIndex,
+          )}
           cssClasses={['red-symbol']}
         >
           {''}

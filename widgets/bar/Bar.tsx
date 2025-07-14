@@ -37,7 +37,7 @@ export default function Bar({ gdkmonitor }: { gdkmonitor: Gdk.Monitor }) {
           <DatePanel />
           <TimeOfDayPanel />
           <WorkspacesPanel />
-          <MusicVisualizer />
+          {/* <MusicVisualizer /> */}
         </box>
         <box spacing={spacing} $type='center'>
           <CurrentAppPanel />
