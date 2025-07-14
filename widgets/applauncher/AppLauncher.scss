@@ -29,6 +29,7 @@ $app-number-to-show: 5;
 .app-search {
   background-color: transparent;
   min-height: $app-search-height;
+  border-bottom: 1px solid colors.$color15;
 
   &__entry {
     border: none;
@@ -48,8 +49,8 @@ $app-number-to-show: 5;
   min-height: $app-button-height;
   padding: 0px;
   padding-left: 5px;
-  border-top: 1px solid colors.$color15;
-  border-bottom: 1px solid colors.$color15;
+  // border-top: 1px solid colors.$color15;
+  // border-bottom: 1px solid colors.$color15;
   border-radius: vars.$roundness;
   background-color: transparent;
 
