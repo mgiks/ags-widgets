@@ -1,4 +1,4 @@
-# ⚙️ My Astal Widgets
+# ⚙️ My AGS Widgets
 
 Custom widgets powered by [Astal](https://github.com/Aylur/astal) and [AGS](https://github.com/Aylur/ags).
 
@@ -9,12 +9,12 @@ Custom widgets powered by [Astal](https://github.com/Aylur/astal) and [AGS](http
 ## 📦 Installation
 
 1. **Install astal and ags:**  
-   - 👉 [astal installation guide](https://aylur.github.io/astal/guide/getting-started/installation)
-   - 👉 [ags installation guide](https://aylur.github.io/ags/guide/quick-start.html)
+   - 👉 [astal installation guide](https://aylur.github.io/astal/guide/installation)
+   - 👉 [ags installation guide](https://aylur.github.io/ags/guide/install.html)
 
 2. **Clone this repository**:
    ```sh
-   git clone https://github.com/mgiks/astal-widgets $HOME/.config/ags
+   git clone https://github.com/mgiks/ags-widgets $HOME/.config/ags
    ```
    
 3. **Generate [typescript](https://github.com/microsoft/TypeScript) types**:
@@ -24,5 +24,5 @@ Custom widgets powered by [Astal](https://github.com/Aylur/astal) and [AGS](http
 
 4. **Run**:
    ```sh
-   asg run
+   ags run
    ```
