@@ -22,7 +22,7 @@ export default function AppLauncher(
       exclusivity={Astal.Exclusivity.NORMAL}
       keymode={Astal.Keymode.EXCLUSIVE}
       resizable={false}
-      onNotifyVisible={() => setQuery('')}
+      onNotifyVisible={() => (setCurrentAppIndex(0), setQuery(''))}
     >
       <Gtk.EventControllerKey
         onKeyPressed={({ widget }, keyval, _, mod) => {
