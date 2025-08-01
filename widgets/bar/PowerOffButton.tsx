@@ -17,7 +17,7 @@ function PowerOffButton() {
         onLeave={() => setHovered(false)}
       />
 
-      <image iconName={'power-button'} />
+      <image iconName={'power-off'} />
       <revealer
         transitionDuration={150}
         revealChild={hovered}

@@ -1,0 +1,22 @@
+@use '../../utility-styles/_shared-styles.scss' as shared;
+@use '../../utility-styles/_generated-colors.scss' as colors;
+@use '../../utility-styles/_style-variables.scss' as vars;
+
+.power-off-menu {
+  min-width: fit-content;
+
+  &__button {
+    min-height: 50px;
+    min-width: 50px;
+    background-color: rgba($color: black, $alpha: 0.8);
+    border: 1px solid white;
+    padding: 0px;
+    margin: 5px;
+  }
+}
+
+.power-off-menu-label {
+  padding: 20px;
+  font-size: 20px;
+  background-color: white;
+}
