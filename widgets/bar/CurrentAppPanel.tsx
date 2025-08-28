@@ -1,23 +1,29 @@
 import Hyprland from 'gi://AstalHyprland'
-import { createState } from 'ags'
-import { createPoll } from 'ags/time'
+import { Accessor, createBinding, createState } from 'ags'
 import { Gtk } from 'ags/gtk4'
 
+const SPECIAL_WORKSPACE = 'special:magic'
+
 const hyprland = Hyprland.get_default()
-const [isOnSpecialWorkspace, setIsOnSpecialWorkspace] = createState(false)
 
 function CurrentAppPanel() {
+  const focusedClient: Accessor<Hyprland.Client | undefined | null> =
+    createBinding(
+      hyprland,
+      'focusedClient',
+    )
+  const focusedWorkspace = createBinding(hyprland, 'focusedWorkspace')
   const [toolTipText, setToolTipText] = createState('')
-  const currentAppTitle = createPoll('', 8, () => {
-    setIsOnSpecialWorkspace(false)
-    const focusedClient = hyprland.focusedClient
+
+  const currentAppTitle = focusedClient.as((focusedClient) => {
+    if (!focusedClient) return ' desktop'
+
     const title = extractTitleFromClient(focusedClient)
-    if (focusedClient?.workspace.name == 'special:magic') {
-      setIsOnSpecialWorkspace(true)
-    }
 
     setToolTipText(title)
-    return trimTitle(title)
+
+    return trimTitle(title) +
+      (focusedWorkspace.name === SPECIAL_WORKSPACE ? ' S' : '')
   })
 
   return (
@@ -28,18 +34,15 @@ function CurrentAppPanel() {
       tooltipText={toolTipText}
     >
       <label cssClasses={['red-symbol']} label={'󰣇'} />
-      <label label={currentAppTitle} />
-      {isOnSpecialWorkspace.get() && <label label={' S'} />}
+      <label
+        label={currentAppTitle}
+      />
     </box>
   )
 }
 
 function extractTitleFromClient(focusedClient: Hyprland.Client) {
-  if (!focusedClient) return ' desktop'
-
-  let focusedClientTitle = focusedClient.initialTitle
-
-  return ' ' + focusedClientTitle
+  return ' ' + (!focusedClient ? 'desktop' : focusedClient.initialTitle)
 }
 
 function trimTitle(title: string) {
