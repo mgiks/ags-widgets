@@ -14,12 +14,9 @@ function WorkspacesPanel() {
       createBinding(hyprland, 'focusedWorkspace'),
       createBinding(hyprland, 'clients'),
       createBinding(hyprland, 'focusedClient'),
-      createBinding(hyprland.focusedClient, 'workspace'),
     ],
     () => {
-      return range(10).map((
-        i,
-      ) => (Workspace({ workspace: Hyprland.Workspace.dummy(i + 1, null) })))
+      return range(10).map((i) => (Workspace({ workspace: { id: i + 1 } })))
     },
   )
 
@@ -29,40 +26,33 @@ function WorkspacesPanel() {
       halign={Gtk.Align.CENTER}
       cssClasses={['panel', 'workspaces-panel']}
     >
-      <For each={workspaces}>
-        {(workspace) => workspace}
-      </For>
+      <For each={workspaces}>{(workspace) => workspace}</For>
     </box>
   )
 }
 
-type WorkspaceType = {
-  workspace: Hyprland.Workspace
-}
+type WorkspaceType = { workspace: { id: number } }
 
 function Workspace({ workspace }: WorkspaceType) {
   let cssClasses = ['workspaces-panel__workspace']
 
-  const isOccupied = hyprland.get_workspace(workspace.id)?.get_clients().length
+  const isOccupied =
+    hyprland.get_workspace(workspace.id)?.get_clients().length > 0
   isOccupied && cssClasses.push('workspaces-panel__workspace_occupied')
 
   const isFocused = hyprland.focusedWorkspace.id == workspace.id
   isFocused && cssClasses.push('workspaces-panel__workspace_focused')
 
-  let isVisible = false
-
-  if (isOccupied || isFocused) {
-    isVisible = true
-  }
-
   return (
     <box
-      visible={isVisible}
+      visible={isFocused || isOccupied}
       cssClasses={cssClasses}
       valign={Gtk.Align.CENTER}
       halign={Gtk.Align.CENTER}
     >
-      <Gtk.GestureClick onPressed={() => workspace.focus()} />
+      <Gtk.GestureClick
+        onPressed={() => hyprland.workspaces.at(workspace.id)?.focus()}
+      />
 
       <label label={workspace.id.toString().slice(-1)} />
     </box>
