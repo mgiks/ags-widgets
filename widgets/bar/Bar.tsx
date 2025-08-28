@@ -5,12 +5,10 @@ import DatePanel from './DatePanel'
 import TimeOfDayPanel from './TimeOfDayPanel'
 import WorkspacesPanel from './WorkspacesPanel'
 import CurrentAppPanel from './CurrentAppPanel'
-import TimeUntilDeathPanel from './TimeUntilDeathPanel'
 import PowerOffButton from './PowerOffButton'
 import BatteryPanel from './BatteryPanel'
 import WifiPanel from './WifiPanel'
 import KeyboardLanguagePanel from './KeyboardLanguagePanel'
-import MusicVisualizer from './MusicVisualizer'
 
 export default function Bar({ gdkmonitor }: { gdkmonitor: Gdk.Monitor }) {
   const spacing = 7
@@ -37,13 +35,11 @@ export default function Bar({ gdkmonitor }: { gdkmonitor: Gdk.Monitor }) {
           <DatePanel />
           <TimeOfDayPanel />
           <WorkspacesPanel />
-          <MusicVisualizer />
         </box>
         <box spacing={spacing} $type='center'>
           <CurrentAppPanel />
         </box>
         <box spacing={spacing} $type='end'>
-          <TimeUntilDeathPanel />
           <KeyboardLanguagePanel />
           <WifiPanel />
           <BatteryPanel />
