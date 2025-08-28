@@ -15,9 +15,7 @@ function WorkspacesPanel() {
       createBinding(hyprland, 'clients'),
       createBinding(hyprland, 'focusedClient'),
     ],
-    () => {
-      return range(10).map((i) => (Workspace({ workspace: { id: i + 1 } })))
-    },
+    () => range(10).map((i) => (Workspace(i + 1))),
   )
 
   return (
@@ -31,16 +29,13 @@ function WorkspacesPanel() {
   )
 }
 
-type WorkspaceType = { workspace: { id: number } }
-
-function Workspace({ workspace }: WorkspaceType) {
+function Workspace(id: number) {
   let cssClasses = ['workspaces-panel__workspace']
 
-  const isOccupied =
-    hyprland.get_workspace(workspace.id)?.get_clients().length > 0
+  const isOccupied = hyprland.get_workspace(id)?.get_clients().length > 0
   isOccupied && cssClasses.push('workspaces-panel__workspace_occupied')
 
-  const isFocused = hyprland.focusedWorkspace.id == workspace.id
+  const isFocused = hyprland.focusedWorkspace.id == id
   isFocused && cssClasses.push('workspaces-panel__workspace_focused')
 
   return (
@@ -50,11 +45,8 @@ function Workspace({ workspace }: WorkspaceType) {
       valign={Gtk.Align.CENTER}
       halign={Gtk.Align.CENTER}
     >
-      <Gtk.GestureClick
-        onPressed={() => hyprland.workspaces.at(workspace.id)?.focus()}
-      />
-
-      <label label={workspace.id.toString().slice(-1)} />
+      <Gtk.GestureClick onPressed={() => hyprland.workspaces.at(id)?.focus()} />
+      <label label={id.toString().slice(-1)} />
     </box>
   )
 }

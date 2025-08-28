@@ -8,21 +8,17 @@ const [isOnSpecialWorkspace, setIsOnSpecialWorkspace] = createState(false)
 
 function CurrentAppPanel() {
   const [toolTipText, setToolTipText] = createState('')
-  const currentAppTitle = createPoll(
-    '',
-    8,
-    () => {
-      setIsOnSpecialWorkspace(false)
-      const focusedClient = hyprland.focusedClient
-      const title = extractTitleFromClient(focusedClient)
-      if (focusedClient?.workspace.name == 'special:magic') {
-        setIsOnSpecialWorkspace(true)
-      }
+  const currentAppTitle = createPoll('', 8, () => {
+    setIsOnSpecialWorkspace(false)
+    const focusedClient = hyprland.focusedClient
+    const title = extractTitleFromClient(focusedClient)
+    if (focusedClient?.workspace.name == 'special:magic') {
+      setIsOnSpecialWorkspace(true)
+    }
 
-      setToolTipText(title)
-      return trimTitle(title)
-    },
-  )
+    setToolTipText(title)
+    return trimTitle(title)
+  })
 
   return (
     <box
@@ -39,23 +35,16 @@ function CurrentAppPanel() {
 }
 
 function extractTitleFromClient(focusedClient: Hyprland.Client) {
-  if (!focusedClient) {
-    return ' desktop'
-  }
+  if (!focusedClient) return ' desktop'
 
-  let focusedClientTitle = focusedClient.title
+  let focusedClientTitle = focusedClient.initialTitle
 
   return ' ' + focusedClientTitle
 }
 
 function trimTitle(title: string) {
   const maxChars = 30
-
-  if (title.length > 30) {
-    title = title.slice(0, maxChars) + '...'
-  }
-
-  return title
+  return title.length > 30 ? title.slice(0, maxChars) + '...' : title
 }
 
 export default CurrentAppPanel
