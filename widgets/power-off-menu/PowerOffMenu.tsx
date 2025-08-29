@@ -20,34 +20,52 @@ export default function PowerOffMenu(
     >
       <Gtk.EventControllerKey
         onKeyPressed={({ widget }, keyval) => {
-          if (keyval == Gdk.KEY_Escape) {
-            widget.hide()
+          switch (keyval) {
+            case (Gdk.KEY_Escape):
+              widget.hide()
+              break
+            case (Gdk.KEY_j):
+              widget.child_focus(Gtk.DirectionType.TAB_FORWARD)
+              break
+            case (Gdk.KEY_k):
+              widget.child_focus(Gtk.DirectionType.TAB_BACKWARD)
+              break
           }
         }}
       />
-      <box
-        orientation={Gtk.Orientation.VERTICAL}
-        cssClasses={['power-off-menu-label']}
-      >
-        <label label='Power off menu' />
-      </box>
-      <box
-        hexpand={true}
-        cssClasses={['power-off-menu']}
-        orientation={Gtk.Orientation.HORIZONTAL}
-      >
-        <button
-          onClicked={() => turnOffPc()}
-          cssClasses={['power-off-menu__button']}
-        >
-          <image iconName='power-off'></image>
-        </button>
-        <button
-          onClicked={() => rebootPc()}
-          cssClasses={['power-off-menu__button']}
-        >
-          <image iconName='reboot'></image>
-        </button>
+      <box cssClasses={['power-off-menu']}>
+        <box>
+          <box orientation={Gtk.Orientation.VERTICAL}>
+            <box
+              orientation={Gtk.Orientation.HORIZONTAL}
+            >
+              <button
+                onClicked={() => turnOffPc()}
+                cssClasses={['power-off-menu__button']}
+              >
+                <box>
+                  <box cssClasses={['power-off-menu__icon']}>
+                    <image iconName='power-off' />
+                  </box>
+                  <label label={'Shutdown'} />
+                </box>
+              </button>
+            </box>
+            <box orientation={Gtk.Orientation.HORIZONTAL}>
+              <button
+                onClicked={() => rebootPc()}
+                cssClasses={['power-off-menu__button']}
+              >
+                <box>
+                  <box cssClasses={['power-off-menu__icon']}>
+                    <image iconName='reboot' />
+                  </box>
+                  <label label={'Restart'} />
+                </box>
+              </button>
+            </box>
+          </box>
+        </box>
       </box>
     </window>
   )

@@ -5,7 +5,6 @@ import DatePanel from './DatePanel'
 import TimeOfDayPanel from './TimeOfDayPanel'
 import WorkspacesPanel from './WorkspacesPanel'
 import CurrentAppPanel from './CurrentAppPanel'
-import PowerOffButton from './PowerOffButton'
 import BatteryPanel from './BatteryPanel'
 import WifiPanel from './WifiPanel'
 import KeyboardLanguagePanel from './KeyboardLanguagePanel'
@@ -43,7 +42,6 @@ export default function Bar({ gdkmonitor }: { gdkmonitor: Gdk.Monitor }) {
           <KeyboardLanguagePanel />
           <WifiPanel />
           <BatteryPanel />
-          <PowerOffButton />
         </box>
       </centerbox>
     </window>

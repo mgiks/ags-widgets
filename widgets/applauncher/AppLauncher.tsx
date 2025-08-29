@@ -31,14 +31,16 @@ export default function AppLauncher(
               widget.hide()
               break
             case (Gdk.KEY_j):
-              mod == Gdk.ModifierType.CONTROL_MASK &&
+              if (mod === Gdk.ModifierType.CONTROL_MASK) {
                 setCurrentAppIndex((i) =>
                   i < appList.get().length - 1 ? i + 1 : i
                 )
+              }
               break
             case (Gdk.KEY_k):
-              mod == Gdk.ModifierType.CONTROL_MASK &&
+              if (mod === Gdk.ModifierType.CONTROL_MASK) {
                 setCurrentAppIndex((i) => i > 0 ? i - 1 : i)
+              }
               break
           }
         }}

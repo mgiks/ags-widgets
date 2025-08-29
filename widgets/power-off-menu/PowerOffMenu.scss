@@ -3,20 +3,26 @@
 @use '../../utility-styles/_style-variables.scss' as vars;
 
 .power-off-menu {
-  min-width: fit-content;
+  background-color: rgba($color: black, $alpha: 0.8);
 
   &__button {
-    min-height: 50px;
-    min-width: 50px;
+    font-size: 12px;
+    min-height: 20px;
+    min-width: 100px;
     background-color: rgba($color: black, $alpha: 0.8);
-    border: 1px solid white;
-    padding: 0px;
-    margin: 5px;
+    border: 1px solid #8d8d8d;
+    color: #a7a7a7;
+    border-radius: 0px;
+    padding: 10px;
+    margin: 4px;
   }
-}
 
-.power-off-menu-label {
-  padding: 20px;
-  font-size: 20px;
-  background-color: white;
+  &__button:focus {
+    outline: none;
+    border: 1px solid colors.$color1;
+  }
+
+  &__icon {
+    margin-right: 10px;
+  }
 }

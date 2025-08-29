@@ -8,8 +8,8 @@ $app-number-to-show: 5;
 
 .app-launcher {
   background-color: rgba($color: black, $alpha: 0.8);
-  color: colors.$color15;
-  border: vars.$border-width solid colors.$color15;
+  color: #a7a7a7;
+  border: vars.$border-width solid #8d8d8d;
   border-radius: vars.$roundness;
   padding: 0px;
   min-width: 500px;
@@ -29,7 +29,7 @@ $app-number-to-show: 5;
 .app-search {
   background-color: transparent;
   min-height: $app-search-height;
-  border-bottom: 1px solid colors.$color15;
+  border-bottom: 1px solid #8d8d8d;
 
   &__entry {
     border: none;
@@ -49,8 +49,6 @@ $app-number-to-show: 5;
   min-height: $app-button-height;
   padding: 0px;
   padding-left: 5px;
-  // border-top: 1px solid colors.$color15;
-  // border-bottom: 1px solid colors.$color15;
   border-radius: vars.$roundness;
   background-color: transparent;
 
