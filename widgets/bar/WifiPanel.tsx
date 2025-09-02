@@ -1,11 +1,16 @@
-import { createBinding } from 'ags'
+import { Accessor, createBinding } from 'ags'
 import Network from 'gi://AstalNetwork'
 import Gtk from 'gi://Gtk?version=4.0'
 
 function WifiPanel() {
-  const network = Network.get_default()
+  const network: Network.Network = Network.get_default()
   const wifi = createBinding(network, 'wifi')
-  const ssid = createBinding(network.wifi, 'ssid')
+
+  const ssid = createBinding(
+    network.wifi,
+    'ssid',
+  )
+
   const iconName = wifi.as((wifi) => {
     return wifi.iconName.replace('symbolic', 'custom')
   })
@@ -17,8 +22,14 @@ function WifiPanel() {
       cssClasses={['panel']}
     >
       <box spacing={3}>
-        <image iconName={iconName} />
-        <label label={ssid} />
+        {wifi.get() && ssid.get()
+          ? (
+            <>
+              <image iconName={iconName} />
+              <label label={ssid} />
+            </>
+          )
+          : <image icon_name={'network-wireless-disabled-custom'} />}
       </box>
     </box>
   )
