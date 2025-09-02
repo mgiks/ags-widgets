@@ -2,8 +2,8 @@
 @use '../../utility-styles/_generated-colors.scss' as colors;
 @use '../../utility-styles/_style-variables.scss' as vars;
 
-$app-button-height: 60px;
-$app-search-height: 70px;
+$app-button-height: 30px;
+$app-search-height: 30px;
 $app-number-to-show: 5;
 
 .app-launcher {
@@ -12,9 +12,9 @@ $app-number-to-show: 5;
   border: vars.$border-width solid #8d8d8d;
   border-radius: vars.$roundness;
   padding: 0px;
-  min-width: 500px;
+  min-width: 350px;
   min-height: calc(
-    ($app-button-height + 2px) * $app-number-to-show + $app-search-height
+    $app-button-height * $app-number-to-show + $app-search-height
   );
 
   &__failed-search {
@@ -30,18 +30,19 @@ $app-number-to-show: 5;
   background-color: transparent;
   min-height: $app-search-height;
   border-bottom: 1px solid #8d8d8d;
+  font-size: 16px;
 
   &__entry {
     border: none;
     border-radius: 0px;
     background-color: transparent;
-  }
 
-  &__entry:focus-within {
-    box-shadow: none;
-    background-color: transparent;
-    border-color: transparent;
-    outline: none;
+    &:focus-within {
+      box-shadow: none;
+      background-color: transparent;
+      border-color: transparent;
+      outline: none;
+    }
   }
 }
 
@@ -54,10 +55,10 @@ $app-number-to-show: 5;
 
   &__label {
     font-family: 'JetBrains Mono SemiBold';
-    font-size: 1em;
+    font-size: 16px;
   }
 
-  &__description {
-    font-size: 0.8em;
+  &:focus-within {
+    outline: 1px solid colors.$color1;
   }
 }
