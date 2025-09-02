@@ -45,7 +45,9 @@ function Workspace(id: number) {
       valign={Gtk.Align.CENTER}
       halign={Gtk.Align.CENTER}
     >
-      <Gtk.GestureClick onPressed={() => hyprland.workspaces.at(id)?.focus()} />
+      <Gtk.GestureClick
+        onPressed={() => hyprland.get_workspace(id)?.focus()}
+      />
       <label label={id.toString().slice(-1)} />
     </box>
   )
