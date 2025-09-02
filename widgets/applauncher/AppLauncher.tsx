@@ -100,10 +100,6 @@ function AppList() {
           vexpand
           visible={appList((l) => l.length === 0)}
         >
-          <image
-            iconName='system-search'
-            iconSize={Gtk.IconSize.LARGE}
-          />
           <label label='No match found' />
         </box>
       </box>
