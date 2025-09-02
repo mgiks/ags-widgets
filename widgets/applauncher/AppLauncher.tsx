@@ -1,12 +1,18 @@
-import { Accessor, createComputed, createState, For } from 'ags'
+import { Accessor, createState, For } from 'ags'
 import { Astal, Gdk, Gtk } from 'ags/gtk4'
 import app from 'ags/gtk4/app'
+import Fuse from 'fuse.js'
 import Apps from 'gi://AstalApps'
 import Pango from 'gi://Pango?version=1.0'
 
+const apps = new Apps.Apps().get_list()
+const fuse = new Fuse(apps, {
+  includeScore: true,
+  keys: ['name'],
+})
+
 const WINDOW_NAME = 'app-launcher'
 
-const apps = new Apps.Apps()
 const [query, setQuery] = createState('')
 const [currentAppIndex, setCurrentAppIndex] = createState(0)
 
@@ -22,26 +28,24 @@ export default function AppLauncher(
       exclusivity={Astal.Exclusivity.NORMAL}
       keymode={Astal.Keymode.EXCLUSIVE}
       resizable={false}
-      onNotifyVisible={() => (setCurrentAppIndex(0), setQuery(''))}
+      onNotifyVisible={(
+        widget,
+      ) => (setCurrentAppIndex(0),
+        setQuery(''),
+        widget.child_focus(Gtk.DirectionType.TAB_FORWARD))}
     >
       <Gtk.EventControllerKey
         onKeyPressed={({ widget }, keyval, _, mod) => {
-          switch (keyval) {
-            case (Gdk.KEY_Escape):
-              widget.hide()
-              break
-            case (Gdk.KEY_j):
-              if (mod === Gdk.ModifierType.CONTROL_MASK) {
-                setCurrentAppIndex((i) =>
-                  i < appList.get().length - 1 ? i + 1 : i
-                )
-              }
-              break
-            case (Gdk.KEY_k):
-              if (mod === Gdk.ModifierType.CONTROL_MASK) {
-                setCurrentAppIndex((i) => i > 0 ? i - 1 : i)
-              }
-              break
+          if (keyval === Gdk.KEY_Escape) {
+            widget.hide()
+            return
+          }
+          if (mod == Gdk.ModifierType.CONTROL_MASK) {
+            if (keyval === Gdk.KEY_j) {
+              widget.child_focus(Gtk.DirectionType.TAB_FORWARD)
+            } else if (keyval === Gdk.KEY_k) {
+              widget.child_focus(Gtk.DirectionType.TAB_BACKWARD)
+            }
           }
         }}
       />
@@ -57,11 +61,11 @@ export default function AppLauncher(
   )
 }
 
-const appList = query((q) => apps.fuzzy_query(q))
+const appList = query((q) => fuse.search(q))
 
 function SearchEntry() {
   const onEnter = () => {
-    appList.get()[currentAppIndex.get()].launch()
+    appList.get()[currentAppIndex.get()].item.launch()
     hide()
   }
 
@@ -71,7 +75,6 @@ function SearchEntry() {
         $type='overlay'
         vexpand
         cssClasses={['app-search__entry']}
-        primaryIconName={'system-search'}
         placeholderText='Search...'
         text={query}
         onNotifyText={(self) => {
@@ -89,7 +92,7 @@ function AppList() {
     <scrolledwindow vexpand>
       <box orientation={Gtk.Orientation.VERTICAL}>
         <For each={appList}>
-          {(app, i) => <AppButton app={app} appIndex={i} />}
+          {(app, i) => <AppButton app={app.item} appIndex={i} />}
         </For>
         <box
           halign={Gtk.Align.CENTER}
@@ -115,7 +118,7 @@ type AppButtonProps = {
   appIndex: Accessor<number>
 }
 
-function AppButton({ app, appIndex }: AppButtonProps) {
+function AppButton({ app }: AppButtonProps) {
   return (
     <button
       cssClasses={['app-button']}
@@ -125,16 +128,7 @@ function AppButton({ app, appIndex }: AppButtonProps) {
       }}
     >
       <box spacing={4}>
-        <box
-          visible={createComputed(
-            [appIndex, currentAppIndex],
-            (appIndex, currentAppIndex) => appIndex == currentAppIndex,
-          )}
-          cssClasses={['red-symbol']}
-        >
-          {''}
-        </box>
-        <image icon_size={Gtk.IconSize.LARGE} iconName={app.iconName} />
+        <image icon_size={Gtk.IconSize.NORMAL} iconName={app.iconName} />
         <box
           valign={Gtk.Align.CENTER}
           orientation={Gtk.Orientation.VERTICAL}
@@ -145,16 +139,6 @@ function AppButton({ app, appIndex }: AppButtonProps) {
             xalign={0}
             label={app.name}
           />
-          {app.description && (
-            <label
-              cssClasses={['app-button__description']}
-              wrap
-              xalign={0}
-              label={app.description.length > 60
-                ? app.description.slice(0, 60).trimEnd() + '...'
-                : app.description}
-            />
-          )}
         </box>
       </box>
     </button>
