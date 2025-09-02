@@ -14,7 +14,6 @@ const fuse = new Fuse(apps, {
 const WINDOW_NAME = 'app-launcher'
 
 const [query, setQuery] = createState('')
-const [currentAppIndex, setCurrentAppIndex] = createState(0)
 
 export default function AppLauncher(
   { gdkmonitor }: { gdkmonitor: Gdk.Monitor },
@@ -30,9 +29,9 @@ export default function AppLauncher(
       resizable={false}
       onNotifyVisible={(
         widget,
-      ) => (setCurrentAppIndex(0),
-        setQuery(''),
-        widget.child_focus(Gtk.DirectionType.TAB_FORWARD))}
+      ) => (
+        setQuery(''), widget.child_focus(Gtk.DirectionType.TAB_FORWARD)
+      )}
     >
       <Gtk.EventControllerKey
         onKeyPressed={({ widget }, keyval, _, mod) => {
@@ -65,7 +64,7 @@ const appList = query((q) => fuse.search(q))
 
 function SearchEntry() {
   const onEnter = () => {
-    appList.get()[currentAppIndex.get()].item.launch()
+    appList.get()[0].item.launch()
     hide()
   }
 
@@ -78,7 +77,6 @@ function SearchEntry() {
         placeholderText='Search...'
         text={query}
         onNotifyText={(self) => {
-          setCurrentAppIndex(0)
           setQuery(self.text)
         }}
         onActivate={onEnter}
