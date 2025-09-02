@@ -2,18 +2,19 @@
 @use '../../utility-styles/_generated-colors.scss' as colors;
 @use '../../utility-styles/_style-variables.scss' as vars;
 
+$gap: 5px;
+
 .power-off-menu {
   background-color: rgba($color: black, $alpha: 0.8);
 
   &__button {
-    font-size: 12px;
     min-height: 20px;
-    min-width: 100px;
+    min-width: 90px;
     background-color: rgba($color: black, $alpha: 0.8);
     border: 1px solid #8d8d8d;
     color: #a7a7a7;
     border-radius: 0px;
-    padding: 10px;
+    padding: $gap;
     margin: 4px;
   }
 
@@ -23,6 +24,6 @@
   }
 
   &__icon {
-    margin-right: 10px;
+    margin-right: $gap;
   }
 }
