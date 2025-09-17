@@ -16,11 +16,11 @@ $gap: 5px;
     border-radius: 0px;
     padding: $gap;
     margin: 4px;
-  }
 
-  &__button:focus {
-    outline: none;
-    border: 1px solid colors.$color1;
+    &:focus {
+      outline: none;
+      border: 1px solid colors.$color1;
+    }
   }
 
   &__icon {

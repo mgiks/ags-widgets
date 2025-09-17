@@ -3,14 +3,14 @@ import { Astal, Gdk, Gtk } from 'ags/gtk4'
 import app from 'ags/gtk4/app'
 import { exec } from 'ags/process'
 
-const WINDOW_NAME = 'power-off-menu'
+export const POWER_OFF_MENU_WINDOW_NAME = 'power-off-menu'
 
 export default function PowerOffMenu(
   { gdkmonitor }: { gdkmonitor: Gdk.Monitor },
 ) {
   return (
     <window
-      name={WINDOW_NAME}
+      name={POWER_OFF_MENU_WINDOW_NAME}
       cssClasses={['widget']}
       gdkmonitor={gdkmonitor}
       application={app}

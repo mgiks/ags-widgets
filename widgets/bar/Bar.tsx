@@ -8,6 +8,9 @@ import CurrentAppPanel from './CurrentAppPanel'
 import BatteryPanel from './BatteryPanel'
 import WifiPanel from './WifiPanel'
 import KeyboardLanguagePanel from './KeyboardLanguagePanel'
+import BluetoothPanel from './BluetoothPanel'
+
+export const BAR_WINDOW_NAME = 'bar'
 
 export default function Bar({ gdkmonitor }: { gdkmonitor: Gdk.Monitor }) {
   const spacing = 7
@@ -16,7 +19,7 @@ export default function Bar({ gdkmonitor }: { gdkmonitor: Gdk.Monitor }) {
   return (
     <window
       visible
-      name={'bar'}
+      name={BAR_WINDOW_NAME}
       cssClasses={['widget']}
       resizable={true}
       valign={Gtk.Align.CENTER}
@@ -41,6 +44,7 @@ export default function Bar({ gdkmonitor }: { gdkmonitor: Gdk.Monitor }) {
         <box spacing={spacing} $type='end'>
           <KeyboardLanguagePanel />
           <WifiPanel />
+          <BluetoothPanel />
           <BatteryPanel />
         </box>
       </centerbox>

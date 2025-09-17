@@ -1,0 +1,33 @@
+@use '../../utility-styles/_shared-styles.scss' as shared;
+@use '../../utility-styles/_generated-colors.scss' as colors;
+@use '../../utility-styles/_style-variables.scss' as vars;
+
+$button-height: 30px;
+$networks-to-show: 5;
+$width: 200px;
+
+.wifi-chooser {
+  background-color: rgba($color: black, $alpha: 0.8);
+  color: #a7a7a7;
+  border: vars.$border-width solid #8d8d8d;
+  border-radius: vars.$roundness;
+  min-width: $width;
+  min-height: calc($button-height * $networks-to-show);
+  padding: 0;
+  margin: 0;
+
+  &__button {
+    min-height: $button-height;
+    min-width: $width;
+    background-color: rgba($color: black, $alpha: 0.8);
+    color: #a7a7a7;
+    padding: 0;
+    padding-left: 5px;
+    border-radius: 0px;
+    animation: none;
+
+    &:focus {
+      outline: 1px solid colors.$color1;
+    }
+  }
+}

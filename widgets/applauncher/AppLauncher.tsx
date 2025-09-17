@@ -11,7 +11,7 @@ const fuse = new Fuse(apps, {
   keys: ['name'],
 })
 
-const WINDOW_NAME = 'app-launcher'
+export const APP_LAUNCHER_WINDOW_NAME = 'app-launcher'
 
 const [query, setQuery] = createState('')
 
@@ -20,7 +20,7 @@ export default function AppLauncher(
 ) {
   return (
     <window
-      name={WINDOW_NAME}
+      name={APP_LAUNCHER_WINDOW_NAME}
       cssClasses={['widget']}
       gdkmonitor={gdkmonitor}
       application={app}
@@ -139,6 +139,6 @@ function AppButton({ app }: AppButtonProps) {
   )
 }
 
-function hide() {
-  app.get_window(WINDOW_NAME)?.hide()
+export function hide() {
+  app.get_window(APP_LAUNCHER_WINDOW_NAME)?.hide()
 }
