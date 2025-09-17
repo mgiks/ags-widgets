@@ -11,9 +11,7 @@ function WifiPanel() {
     'ssid',
   )
 
-  const iconName = wifi.as((wifi) => {
-    return wifi.iconName.replace('symbolic', 'custom')
-  })
+  const iconName = createBinding(network.wifi, 'iconName')
 
   return (
     <box
@@ -25,7 +23,11 @@ function WifiPanel() {
         {wifi.get() && ssid.get()
           ? (
             <>
-              <image iconName={iconName} />
+              <image
+                iconName={iconName.as((iconName) =>
+                  iconName.replace('symbolic', 'custom')
+                )}
+              />
               <label label={ssid} />
             </>
           )
