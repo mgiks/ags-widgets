@@ -22,6 +22,9 @@ export default function WifiChooser(
       application={app}
       exclusivity={Astal.Exclusivity.EXCLUSIVE}
       keymode={Astal.Keymode.EXCLUSIVE}
+      onNotifyVisible={() => {
+        execAsync(`nmcli device wifi rescan`)
+      }}
       resizable={false}
     >
       <Gtk.EventControllerKey
