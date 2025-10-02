@@ -25,8 +25,8 @@ $width: 200px;
     padding-left: 5px;
     border: none;
     animation: none;
-    margin-top: 1px;
-    margin-bottom: 1px;
+    padding-top: 1px;
+    padding-bottom: 1px;
 
     &:focus-within {
       outline: 1px solid colors.$color1;
