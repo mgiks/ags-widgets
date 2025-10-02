@@ -12,7 +12,7 @@ $width: 200px;
   border: vars.$border-width solid #8d8d8d;
   border-radius: vars.$roundness;
   min-width: $width;
-  min-height: calc($button-height * $networks-to-show);
+  min-height: calc(($button-height + 2px) * $networks-to-show);
   padding: 0;
   margin: 0;
 
