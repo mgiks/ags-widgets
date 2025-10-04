@@ -10,7 +10,8 @@ function BluetoothPanel() {
   const deviceName = createComputed([connected], () => {
     for (const device of bluetooth.get_devices()) {
       if (device.connected) {
-        return device.name
+        return device.name + ' ' + (device.batteryPercentage * 100).toString() +
+          '%'
       }
     }
     return ''
