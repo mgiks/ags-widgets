@@ -9,6 +9,7 @@ import BatteryPanel from './BatteryPanel'
 import WifiPanel from './WifiPanel'
 import KeyboardLanguagePanel from './KeyboardLanguagePanel'
 import BluetoothPanel from './BluetoothPanel'
+import VolumeIndicator from './VolumeIndicator'
 
 export const BAR_WINDOW_NAME = 'bar'
 
@@ -45,6 +46,7 @@ export default function Bar({ gdkmonitor }: { gdkmonitor: Gdk.Monitor }) {
           <KeyboardLanguagePanel />
           <WifiPanel />
           <BluetoothPanel />
+          <VolumeIndicator />
           <BatteryPanel />
         </box>
       </centerbox>
