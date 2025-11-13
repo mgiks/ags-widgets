@@ -7,9 +7,13 @@ $gap: 5px;
 .power-off-menu {
   background-color: rgba($color: black, $alpha: 0.8);
 
+  &__label {
+    font-size: 1.5rem;
+  }
+
   &__button {
-    min-height: 20px;
-    min-width: 90px;
+    min-width: 50px;
+    min-height: 50px;
     background-color: rgba($color: black, $alpha: 0.8);
     border: 1px solid #8d8d8d;
     color: #a7a7a7;
