@@ -1,4 +1,4 @@
-import { createBinding, createComputed, For } from 'ags'
+import { createBinding, createComputed, createState, For } from 'ags'
 import { Gtk } from 'ags/gtk4'
 import Hyprland from 'gi://AstalHyprland'
 
@@ -18,13 +18,42 @@ function WorkspacesPanel() {
     () => range(10).map((i) => (Workspace(i + 1))),
   )
 
+  const [plusButtonVisibility, setPlusButtonVisibility] = createState(false)
+
   return (
     <box
       valign={Gtk.Align.CENTER}
       halign={Gtk.Align.CENTER}
       cssClasses={['panel', 'workspaces-panel']}
     >
-      <For each={workspaces}>{(workspace) => workspace}</For>
+      <Gtk.EventControllerMotion
+        onEnter={() => setPlusButtonVisibility(true)}
+        onLeave={() => setPlusButtonVisibility(false)}
+      />
+      {
+        /* The <box> around the <For> is necessary to prevent the <For> children
+        from being appended at the right of the container, and thus making
+        the plus button appear on the left.
+        */
+      }
+      <box>
+        <For each={workspaces}>{(workspace) => workspace.element}</For>
+      </box>
+      <button
+        onClicked={() => {
+          const newWorkspaceId = workspaces((workspaces) =>
+            workspaces.findLast((workspace) => workspace.isOccupied)
+          ).as((workspace) => (workspace!.id + 1).toString())
+          const app = 'ghostty'
+
+          hyprland.dispatch('workspace', newWorkspaceId.get())
+          hyprland.dispatch('exec', app)
+        }}
+        cssClasses={['workspaces-panel__add-workspace-button']}
+        visible={plusButtonVisibility}
+      >
+        +
+      </button>
     </box>
   )
 }
@@ -38,19 +67,24 @@ function Workspace(id: number) {
   const isFocused = hyprland.focusedWorkspace.id == id
   isFocused && cssClasses.push('workspaces-panel__workspace_focused')
 
-  return (
-    <box
-      visible={isFocused || isOccupied}
-      cssClasses={cssClasses}
-      valign={Gtk.Align.CENTER}
-      halign={Gtk.Align.CENTER}
-    >
-      <Gtk.GestureClick
-        onPressed={() => hyprland.get_workspace(id)?.focus()}
-      />
-      <label label={id.toString().slice(-1)} />
-    </box>
-  )
+  return {
+    id,
+    isOccupied,
+    isFocused,
+    element: (
+      <button
+        visible={isFocused || isOccupied}
+        cssClasses={cssClasses}
+        valign={Gtk.Align.CENTER}
+        halign={Gtk.Align.CENTER}
+      >
+        <Gtk.GestureClick
+          onEnd={() => hyprland.get_workspace(id)?.focus()}
+        />
+        <label label={id.toString().slice(-1)} />
+      </button>
+    ),
+  }
 }
 
 export default WorkspacesPanel

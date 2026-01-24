@@ -5,15 +5,23 @@
 .workspaces-panel {
   padding: 0px;
 
-  &__workspace {
-    color: black;
+  @mixin button-style {
     background-color: transparent;
     border-radius: vars.$roundness;
     min-height: 0px;
     padding: 2px 6px;
+  }
+
+  @mixin button-hover-effect {
+    background-color: colors.$color4;
+  }
+
+  &__workspace {
+    @include button-style;
+    color: black;
 
     &:hover {
-      background-color: colors.$color4;
+      @include button-hover-effect;
     }
 
     &_focused {
@@ -22,6 +30,15 @@
 
     &_occupied {
       color: #a7a7a7;
+    }
+  }
+
+  &__add-workspace-button {
+    @include button-style;
+    color: white;
+
+    &:hover {
+      @include button-hover-effect;
     }
   }
 }
