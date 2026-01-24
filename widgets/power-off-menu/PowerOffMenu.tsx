@@ -1,7 +1,7 @@
 import { Accessor, createState } from 'ags'
 import { Astal, Gdk, Gtk } from 'ags/gtk4'
 import app from 'ags/gtk4/app'
-import { exec } from 'ags/process'
+import { execAsync } from 'ags/process'
 
 export const POWER_OFF_MENU_WINDOW_NAME = 'power-off-menu'
 
@@ -79,9 +79,9 @@ export default function PowerOffMenu(
 }
 
 function turnOffPc() {
-  exec("bash -c 'systemctl poweroff'")
+  execAsync('systemctl poweroff')
 }
 
 function rebootPc() {
-  exec("bash -c 'systemctl reboot'")
+  execAsync('systemctl reboot')
 }
