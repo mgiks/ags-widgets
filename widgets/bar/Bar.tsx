@@ -10,6 +10,7 @@ import WifiPanel from './WifiPanel'
 import KeyboardLanguagePanel from './KeyboardLanguagePanel'
 import BluetoothPanel from './BluetoothPanel'
 import VolumeIndicator from './VolumeIndicator'
+import TouchpadStatusPanel from './TouchpadStatusPanel'
 
 export const BAR_WINDOW_NAME = 'bar'
 
@@ -43,6 +44,7 @@ export default function Bar({ gdkmonitor }: { gdkmonitor: Gdk.Monitor }) {
           <CurrentAppPanel />
         </box>
         <box spacing={spacing} $type='end'>
+          <TouchpadStatusPanel />
           <KeyboardLanguagePanel />
           <WifiPanel />
           <BluetoothPanel />
