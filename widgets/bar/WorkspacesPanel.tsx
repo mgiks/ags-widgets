@@ -1,5 +1,5 @@
 import { createBinding, createComputed, createState, For } from 'ags'
-import { Gtk } from 'ags/gtk4'
+import { Gdk, Gtk } from 'ags/gtk4'
 import Hyprland from 'gi://AstalHyprland'
 
 const hyprland = Hyprland.get_default()
@@ -80,6 +80,13 @@ function Workspace(id: number) {
       >
         <Gtk.GestureClick
           onEnd={() => hyprland.get_workspace(id)?.focus()}
+        />
+        <Gtk.GestureClick
+          button={Gdk.BUTTON_MIDDLE}
+          onEnd={() =>
+            hyprland.get_workspace(id)?.clients.forEach((client) =>
+              client.kill()
+            )}
         />
         <label label={id.toString().slice(-1)} />
       </button>
