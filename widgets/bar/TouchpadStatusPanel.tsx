@@ -8,7 +8,9 @@ const touchpadStatus = {
   off: 'touchpad-off',
 }
 
-const [touchpadStatusIcon, setTouchpadStatusIcon] = createState('on')
+const [touchpadStatusIcon, setTouchpadStatusIcon] = createState(
+  touchpadStatus.on,
+)
 const touchpadStatusFile = GLib.getenv('XDG_RUNTIME_DIR') + '/' +
   'touchpad.status'
 
@@ -26,10 +28,10 @@ function TouchpadStatusPanel() {
 async function updateTouchpadStatus() {
   const isTouchpadOn = await readFileAsync(touchpadStatusFile)
 
-  if (isTouchpadOn === 'true') {
-    setTouchpadStatusIcon(touchpadStatus.on)
-  } else if (isTouchpadOn === 'false') {
+  if (isTouchpadOn === 'false') {
     setTouchpadStatusIcon(touchpadStatus.off)
+  } else {
+    setTouchpadStatusIcon(touchpadStatus.on)
   }
 }
 
