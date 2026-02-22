@@ -6,12 +6,16 @@ import PowerOffMenu, {} from './widgets/power-off-menu/PowerOffMenu'
 import WifiChooser, {} from './widgets/wifi-chooser/WifiChooser'
 
 app.connect('window-toggled', (_, toggledWindow) => {
-  for (const window of app.get_windows()) {
-    if (toggledWindow.name == window?.name || window.name == BAR_WINDOW_NAME) {
-      return
-    }
-    window.hide()
+  if (!toggledWindow.is_visible()) {
+    return
   }
+
+  const windowsToIgnore = [toggledWindow.name, BAR_WINDOW_NAME]
+  app.get_windows().forEach((window) => {
+    if (window.is_visible() && !windowsToIgnore.includes(window.name)) {
+      window.hide()
+    }
+  })
 })
 
 app.add_icons('/home/mgik/.config/ags/icons')
