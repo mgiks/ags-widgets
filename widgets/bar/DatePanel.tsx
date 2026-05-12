@@ -16,7 +16,7 @@ function DatePanel() {
       halign={Gtk.Align.CENTER}
       valign={Gtk.Align.CENTER}
     >
-      <image iconName='calendar' />
+      <image iconName='calendar' icon_size={Gtk.IconSize.NORMAL} />
       <box>
         <label label={date} />
       </box>

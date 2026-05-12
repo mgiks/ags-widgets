@@ -20,7 +20,7 @@ function TouchpadStatusPanel() {
 
   return (
     <box cssClasses={['panel']}>
-      <image icon_size={Gtk.IconSize.LARGE} icon_name={touchpadStatusIcon} />
+      <image icon_size={Gtk.IconSize.NORMAL} icon_name={touchpadStatusIcon} />
     </box>
   )
 }
